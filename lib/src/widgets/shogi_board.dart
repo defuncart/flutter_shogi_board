@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 
 import '../configs/board_config.dart';
-import '../models/position.dart';
+import '../models/board_piece.dart';
 import '../utils/package_utils.dart';
 import '../widgets/board_cell.dart';
 
 /// Renders a shogi board using a list of board pieces
 class ShogiBoard extends StatelessWidget {
   /// A list of board pieces
-  final List<Position> boardPieces;
+  final List<BoardPiece> boardPieces;
 
   /// The color of each standard piece on the board
   final Color pieceColor;

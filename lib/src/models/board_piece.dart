@@ -5,8 +5,8 @@ import '../enums/piece_type.dart';
 import '../enums/player_type.dart';
 import '../utils/package_utils.dart';
 
-/// A model representing a position on the shogi board
-class Position {
+/// A model representing a shogi board piece
+class BoardPiece {
   /// The row index
   final int row;
 
@@ -19,17 +19,17 @@ class Position {
   /// Which player the piece belongs to
   final PlayerType player;
 
-  const Position({
+  const BoardPiece({
     @required this.row,
     @required this.column,
     @required this.pieceType,
     this.player = PlayerType.sente,
   });
 
-  /// Whether the position belongs to sente
+  /// Whether the piece belongs to sente
   bool get isSente => player == PlayerType.sente;
 
-  /// A display string of the position
+  /// The pieces display string
   String displayString({bool usesJapanese = true}) =>
       PackageUtils.pieceTypeToString(pieceType, usesJapanese: usesJapanese);
 
