@@ -1,0 +1,20 @@
+name: flutter_shogi_board
+description: A shogi board widget for Flutter.
+version: 0.0.1
+author: James Leahy <defuncart@gmail.com>
+homepage: https://github.com/defuncart/flutter_shogi_board
+
+environment:
+  sdk: ">=2.3.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  meta: ^1.1.7
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  uses-material-design: true

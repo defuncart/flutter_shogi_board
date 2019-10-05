@@ -1,0 +1,16 @@
+name: example
+description: A new Flutter project.
+version: 1.0.0+1
+author: James Leahy <defuncart@gmail.com>
+
+environment:
+  sdk: ">=2.5.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_shogi_board:
+    path: ../
+
+flutter:
+  uses-material-design: true
