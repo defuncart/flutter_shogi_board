@@ -12,25 +12,37 @@ class PackageUtils {
   /// Maps piece type to Japanese characters
   static const Map<PieceType, String> _piecesJP = {
     PieceType.king: '玉',
+    PieceType.rook: '飛',
+    PieceType.bishop: '角',
     PieceType.gold: '金',
     PieceType.silver: '銀',
     PieceType.knight: '桂',
     PieceType.lance: '香',
-    PieceType.bishop: '角',
-    PieceType.rook: '飛',
     PieceType.pawn: '歩',
+    PieceType.rookPromoted: '龍',
+    PieceType.bishopPromoted: '馬',
+    PieceType.silverPromoted: '全',
+    PieceType.knightPromoted: '圭',
+    PieceType.lancePromoted: '杏',
+    PieceType.pawnPromoted: 'と',
   };
 
   /// Maps piece type to English letters
   static const Map<PieceType, String> _piecesEN = {
     PieceType.king: 'K',
+    PieceType.rook: 'R',
+    PieceType.bishop: 'B',
     PieceType.gold: 'G',
     PieceType.silver: 'S',
     PieceType.knight: 'N',
     PieceType.lance: 'L',
-    PieceType.bishop: 'B',
-    PieceType.rook: 'R',
     PieceType.pawn: 'P',
+    PieceType.rookPromoted: '+R',
+    PieceType.bishopPromoted: '+B',
+    PieceType.silverPromoted: '+S',
+    PieceType.knightPromoted: '+N',
+    PieceType.lancePromoted: '+L',
+    PieceType.pawnPromoted: '+P',
   };
 
   /// Converts a piece type to string

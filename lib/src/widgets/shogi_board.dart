@@ -13,6 +13,9 @@ class ShogiBoard extends StatelessWidget {
   /// The color of each standard piece on the board
   final Color pieceColor;
 
+  /// The color of each promoted piece on the board
+  final Color promotedPieceColor;
+
   /// The color of each cell on the board
   final Color cellColor;
 
@@ -25,6 +28,7 @@ class ShogiBoard extends StatelessWidget {
   const ShogiBoard({
     @required this.boardPieces,
     this.pieceColor = Colors.black87,
+    this.promotedPieceColor = Colors.red,
     this.cellColor = Colors.transparent,
     this.borderColor = Colors.black54,
     this.usesJapanese = true,
@@ -53,7 +57,7 @@ class ShogiBoard extends StatelessWidget {
                 left: x == BoardConfig.numberColumns - 1,
                 right: x == 0,
               ),
-              pieceColor: pieceColor,
+              pieceColor: boardPiece != null ? (boardPiece.isPromoted ? promotedPieceColor : pieceColor) : null,
               cellColor: cellColor,
               borderColor: borderColor,
             );

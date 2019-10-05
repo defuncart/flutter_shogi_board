@@ -8,7 +8,7 @@ A shogi board widget for Flutter.
 
 ### Import the package
 
-To use this package, add `flutter_shogi_board` as a dependency in your `pubspec.yaml`
+To use this package, add `flutter_shogi_board` as a dependency in `pubspec.yaml`
 
 ```yaml
 dependencies:
@@ -49,24 +49,20 @@ For more information, see the Flutter app in the `example` directory.
 
 The widget is designed to be used in portrait mode, and fills the board size to match it's parents width. The board pieces are rendered as text.
 
-| Parameter      | Description                                                                               |
-| :------------- |:------------------------------------------------------------------------------------------|
-| `boardPieces`  | A `List<Position>` to render on the shogi game board.                                     |
-| `pieceColor`   | Optional. The piece color, defaults to black.                                             |
-| `cellColor`    | Optional. The board cell background color, defaults to transparent.                       |
-| `borderColor`  | Optional. The board cell background color, defaults to gray.                              |
-| `usesJapanese` | Optional. Whether japanese characters or english letters are displayed, defaults to true. |
+| Parameter            | Description                                                                               |
+|:---------------------|:------------------------------------------------------------------------------------------|
+| `boardPieces`        | A `List<BoardPiece>` to render on the shogi game board.                                   |
+| `pieceColor`         | Optional. The standard piece color, defaults to black.                                    |
+| `promotedPieceColor` | Optional. The promoted piece color, defaults to red.                                      |
+| `cellColor`          | Optional. The board cell background color, defaults to transparent.                       |
+| `borderColor`        | Optional. The board cell background color, defaults to gray.                              |
+| `usesJapanese`       | Optional. Whether japanese characters or english letters are displayed, defaults to true. |
 
 ## Roadmap
 
-This package grew out of my desired to visualize shogi castles in Flutter, and with no widget or even shogi package available, I decided to roll my own. The following will be implemented ASAP:
+This package grew out of my desired to visualize shogi castles in Flutter, and with no widget or even shogi package available, I decided to roll my own.
 
-- Add promoted pieces
-- Ability to import a game
-
-For the future I would like to utilize this widget not just for displaying castles, but also for tsume problems, thus user interaction will be considered.
-
-The models and enums to their own package, if deemed necessary.
+For the future I would like to utilize this widget not just for displaying static game boards, but also for tsume problems, thus user interaction may be considered. The models and enums may also be moved to their own package, if deemed necessary.
 
 ## Raising Issues and Contributing
 

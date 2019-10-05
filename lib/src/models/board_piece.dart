@@ -33,6 +33,15 @@ class BoardPiece {
   String displayString({bool usesJapanese = true}) =>
       PackageUtils.pieceTypeToString(pieceType, usesJapanese: usesJapanese);
 
+  /// Whether the piece is promoted
+  bool get isPromoted =>
+      pieceType == PieceType.rookPromoted ||
+      pieceType == PieceType.bishopPromoted ||
+      pieceType == PieceType.silverPromoted ||
+      pieceType == PieceType.knightPromoted ||
+      pieceType == PieceType.lancePromoted ||
+      pieceType == PieceType.pawnPromoted;
+
   /// Returns a string representation of the model
   @override
   String toString() => '($column, $row): ${describeEnum(player)} ${describeEnum(pieceType)}';

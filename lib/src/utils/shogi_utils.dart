@@ -7,7 +7,7 @@ import '../utils/package_utils.dart';
 /// A class of utils methods used when constructing a shogi board
 class ShogiUtils {
   /// Converts an array of strings [K-59, ...] into an array of board pieces
-  static List<BoardPiece> stringArrayToPositionArray(List<String> strPieces, {player = PlayerType.sente}) {
+  static List<BoardPiece> stringArrayToBoardPiecesArray(List<String> strPieces, {player = PlayerType.sente}) {
     final boardPieces = List<BoardPiece>();
     for (final strPiece in strPieces) {
       // split string K-59 into [k, 59]
@@ -50,7 +50,7 @@ class ShogiUtils {
 
   /// The initial board pieces
   static List<BoardPiece> get initialBoard => _initialBoard ??= [
-        ...(_initialBoardSente ??= stringArrayToPositionArray(GameBoards.initialBoardSente)),
+        ...(_initialBoardSente ??= stringArrayToBoardPiecesArray(GameBoards.initialBoardSente)),
         ...(_initialBoardGote ??= flipBoardPieces(_initialBoardSente))
       ];
 }
