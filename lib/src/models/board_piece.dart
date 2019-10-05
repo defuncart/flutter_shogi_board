@@ -31,7 +31,7 @@ class BoardPiece {
 
   /// The pieces display string
   String displayString({bool usesJapanese = true}) =>
-      PackageUtils.pieceTypeToString(pieceType, usesJapanese: usesJapanese);
+      PackageUtils.pieceTypeToString(pieceType, usesJapanese: usesJapanese, isSente: isSente);
 
   /// Whether the piece is promoted
   bool get isPromoted =>

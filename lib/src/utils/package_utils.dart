@@ -27,6 +27,9 @@ class PackageUtils {
     PieceType.pawnPromoted: 'と',
   };
 
+  /// The japanese character for gote's king
+  static const _kingGoteJP = '王';
+
   /// Maps piece type to English letters
   static const Map<PieceType, String> _piecesEN = {
     PieceType.king: 'K',
@@ -47,9 +50,14 @@ class PackageUtils {
 
   /// Converts a piece type to string
   ///
-  /// `useJapanese` is optional and defaults to `true`
-  static String pieceTypeToString(PieceType pieceType, {bool usesJapanese = true}) =>
-      usesJapanese ? _piecesJP[pieceType] : _piecesEN[pieceType];
+  /// `usesJapanese` and `isSente` are both optional and default to `true`
+  static String pieceTypeToString(PieceType pieceType, {bool usesJapanese = true, bool isSente = true}) {
+    if (usesJapanese && !isSente && pieceType == PieceType.king) {
+      return _kingGoteJP;
+    } else {
+      return usesJapanese ? _piecesJP[pieceType] : _piecesEN[pieceType];
+    }
+  }
 
   /// Converts a string to piece type.
   ///
