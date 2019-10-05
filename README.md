@@ -49,20 +49,19 @@ For more information, see the Flutter app in the `example` directory.
 
 The widget is designed to be used in portrait mode, and fills the board size to match it's parents width. The board pieces are rendered as text.
 
-
-| Parameter      | Description                                                         |
-| :------------- |:--------------------------------------------------------------------|
-| `boardPieces`  | A `List<Position>` to render on the shogi game board.               |
-| `pieceColor`   | Optional. The piece color, defaults to black.                       |
-| `cellColor`    | Optional. The board cell background color, defaults to transparent. |
-| `borderColor`  | Optional. The board cell background color, defaults to gray.        |
+| Parameter      | Description                                                                               |
+| :------------- |:------------------------------------------------------------------------------------------|
+| `boardPieces`  | A `List<Position>` to render on the shogi game board.                                     |
+| `pieceColor`   | Optional. The piece color, defaults to black.                                             |
+| `cellColor`    | Optional. The board cell background color, defaults to transparent.                       |
+| `borderColor`  | Optional. The board cell background color, defaults to gray.                              |
+| `usesJapanese` | Optional. Whether japanese characters or english letters are displayed, defaults to true. |
 
 ## Roadmap
 
 This package grew out of my desired to visualize shogi castles in Flutter, and with no widget or even shogi package available, I decided to roll my own. The following will be implemented ASAP:
 
 - Add promoted pieces
-- Add option to display pieces in EN
 - Ability to import a game
 
 For the future I would like to utilize this widget not just for displaying castles, but also for tsume problems, thus user interaction will be considered.

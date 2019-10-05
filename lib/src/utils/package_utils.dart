@@ -1,19 +1,12 @@
 import '../enums/piece_type.dart';
-import '../enums/player_type.dart';
 import '../models/position.dart';
 
 /// A class of util methods used in the package
 class PackageUtils {
-  /// Returns a string representaion of the piece at position (row, column)
-  static String pieceStringAtPosition(List<Position> boardPieces, int row, int column) {
+  /// Returns the piece at position (row, column), `null` if no piece exists
+  static Position pieceAtPosition(List<Position> boardPieces, int row, int column) {
     final result = boardPieces.where((piece) => piece.row == row && piece.column == column);
-    return result.isNotEmpty ? pieceTypeToString(result.first.pieceType) : '';
-  }
-
-  /// Returns whether the piece at position (row, column) belongs to sente or not
-  static bool pieceDirectionAtPosition(List<Position> boardPieces, int row, int column) {
-    final result = boardPieces.where((piece) => piece.row == row && piece.column == column);
-    return result.isNotEmpty ? result.first.player == PlayerType.sente : true;
+    return result.isNotEmpty ? result.first : null;
   }
 
   /// Maps piece type to Japanese characters
@@ -41,7 +34,10 @@ class PackageUtils {
   };
 
   /// Converts a piece type to string
-  static String pieceTypeToString(PieceType pieceType) => _piecesJP[pieceType];
+  ///
+  /// `useJapanese` is optional and defaults to `true`
+  static String pieceTypeToString(PieceType pieceType, {bool usesJapanese = true}) =>
+      usesJapanese ? _piecesJP[pieceType] : _piecesEN[pieceType];
 
   /// Converts a string to piece type.
   ///

@@ -3,6 +3,7 @@ import 'package:meta/meta.dart';
 
 import '../enums/piece_type.dart';
 import '../enums/player_type.dart';
+import '../utils/package_utils.dart';
 
 /// A model representing a position on the shogi board
 class Position {
@@ -24,6 +25,13 @@ class Position {
     @required this.pieceType,
     this.player = PlayerType.sente,
   });
+
+  /// Whether the position belongs to sente
+  bool get isSente => player == PlayerType.sente;
+
+  /// A display string of the position
+  String displayString({bool usesJapanese = true}) =>
+      PackageUtils.pieceTypeToString(pieceType, usesJapanese: usesJapanese);
 
   /// Returns a string representation of the model
   @override

@@ -10,7 +10,7 @@ class ShogiBoard extends StatelessWidget {
   /// A list of board pieces
   final List<Position> boardPieces;
 
-  /// The color of each piece on the board
+  /// The color of each standard piece on the board
   final Color pieceColor;
 
   /// The color of each cell on the board
@@ -19,11 +19,15 @@ class ShogiBoard extends StatelessWidget {
   /// The color of each cell's border
   final Color borderColor;
 
+  /// If `true` uses japanese characters (i.e. 玉), otherwise english letters (i.e. K)
+  final bool usesJapanese;
+
   const ShogiBoard({
     @required this.boardPieces,
     this.pieceColor = Colors.black87,
     this.cellColor = Colors.transparent,
     this.borderColor = Colors.black54,
+    this.usesJapanese = true,
     Key key,
   }) : super(key: key);
 
@@ -38,9 +42,10 @@ class ShogiBoard extends StatelessWidget {
         for (int y = 0; y < BoardConfig.numberRows; y++) {
           List<Widget> row = List<Widget>(BoardConfig.numberColumns);
           for (int x = BoardConfig.numberColumns - 1; x >= 0; x--) {
+            final boardPiece = PackageUtils.pieceAtPosition(boardPieces, x, y);
             row[BoardConfig.numberColumns - 1 - x] = BoardCell(
-              boardPiece: PackageUtils.pieceStringAtPosition(boardPieces, x, y),
-              sente: PackageUtils.pieceDirectionAtPosition(boardPieces, x, y),
+              boardPiece: boardPiece?.displayString(usesJapanese: usesJapanese) ?? '',
+              sente: boardPiece?.isSente ?? true,
               size: size,
               edge: Edge(
                 top: y == 0,
