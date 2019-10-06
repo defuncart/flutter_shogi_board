@@ -1,6 +1,6 @@
 # flutter_shogi_board
 
-A shogi board widget for Flutter.
+A shogi board widget for Flutter. This widget can be used to render static game board positions, tsume problems or shogi castles.
 
 ![](images/01.png)
 
