@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../configs/board_colors.dart';
 import '../configs/board_config.dart';
 import '../models/board_piece.dart';
 import '../utils/package_utils.dart';
@@ -27,10 +28,10 @@ class ShogiBoard extends StatelessWidget {
 
   const ShogiBoard({
     @required this.boardPieces,
-    this.pieceColor = Colors.black87,
-    this.promotedPieceColor = Colors.red,
+    this.pieceColor = BoardColors.black,
+    this.promotedPieceColor = BoardColors.red,
     this.cellColor = Colors.transparent,
-    this.borderColor = Colors.black54,
+    this.borderColor = BoardColors.gray,
     this.usesJapanese = true,
     Key key,
   }) : super(key: key);
