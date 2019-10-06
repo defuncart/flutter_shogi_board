@@ -112,4 +112,12 @@ class GameBoards {
     'P-96',
     'P-76',
   ];
+
+  static const tsume1 = [
+    'G:K-51',
+    'G:S-61',
+    'G:S-41',
+    'S:+P-53',
+    'S:+B-25',
+  ];
 }

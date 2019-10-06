@@ -9,9 +9,16 @@ class ShogiUtils {
   /// Converts an array of strings [K-59, ...] into an array of board pieces
   static List<BoardPiece> stringArrayToBoardPiecesArray(List<String> strPieces, {player = PlayerType.sente}) {
     final boardPieces = List<BoardPiece>();
-    for (final strPiece in strPieces) {
-      // split string K-59 into [k, 59]
-      final components = strPiece.split('-');
+    for (var strPiece in strPieces) {
+      // split string S:K-59 into [S, K-59], if applicable
+      var components = strPiece.split(':');
+      if (components.length > 1) {
+        player = components[0] == 'S' ? PlayerType.sente : PlayerType.gote;
+        strPiece = components[1];
+      }
+
+      // split string K-59 into [K, 59]
+      components = strPiece.split('-');
       assert(components.length == 2);
 
       // convert components into piece type and (row, column) - note adjusting value to be [0, 8]
