@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:shogi/shogi.dart';
 
 import '../configs/board_colors.dart';
-import '../configs/board_config.dart';
-import '../models/board_piece.dart';
 import '../utils/package_utils.dart';
 import '../widgets/board_cell.dart';
 

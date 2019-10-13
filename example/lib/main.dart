@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_shogi_board/flutter_shogi_board.dart';
+import 'package:shogi/shogi.dart';
 
 void main() {
   runApp(

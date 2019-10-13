@@ -26,6 +26,7 @@ Note that this package requires dart >= 2.3.0.
 ```dart
 import 'package:flutter/material.dart';
 import 'package:flutter_shogi_board/flutter_shogi_board.dart';
+import 'package:shogi/shogi.dart';
 
 void main() {
   runApp(
@@ -62,7 +63,7 @@ The widget is designed to be used in portrait mode, and fills the board size to 
 
 ## Importing a Game Board
 
-As the game board is presently static, a board position can be notated by `{PieceType}-{Row}{Column}`, i.e. `K-59`. If sente or gote aren't specified, then sente is chosen by default. Note that 11 is the top left board cell as per japanese notation.
+As the game board is presently static, a board position can be notated by `{PieceType}-{Row}{Column}`, i.e. `K-59`. Note that 11 is the top left board cell as per japanese notation.
 
 ```dart
 final yagura = ['L-99', 'N-89', 'K-88', 'G-78', 'P-97', 'P-87', 'S-77', 'G-67', 'P-76', 'P-66', 'P-56'];
@@ -70,7 +71,7 @@ final yagura = ['L-99', 'N-89', 'K-88', 'G-78', 'P-97', 'P-87', 'S-77', 'G-67', 
 final boardPieces = ShogiUtils.stringArrayToBoardPiecesArray(yagura);
 ```
 
-To import pieces for both players, use the notation `{Player}:{PieceType}-{Row}{Column}`.
+If sente or gote aren't specified, then sente is chosen by default. To import pieces for both players, use the notation `{Player}:{PieceType}-{Row}{Column}`.
 
 ```dart
 final tsume1 = ['G:K-51', 'G:S-61', 'G:S-41', 'S:+P-53', 'S:+B-25'];
@@ -83,19 +84,11 @@ final tsume1 = ['G:K-51', 'G:S-61', 'G:S-41', 'S:+P-53', 'S:+B-25'];
 
 ## Future Plans
 
-This package grew out of my desired to visualize shogi castles in Flutter, and with no widget or even shogi package available, I decided to roll my own.
+This package grew out of my desired to visualize shogi castles in Flutter, and with no game board widget or even a shogi engine available, I decided to roll my own. The package [shogi](https://github.com/defuncart/shogi) contains the initial business logic from this package and will be simultaneously developed upon.
 
-For the future I would like to utilize this widget not just for displaying static game boards, but also for tsume problems, thus user interaction may be considered. The models and enums may also be moved to their own package, if deemed necessary.
+For the future I would like to utilize this widget not just for displaying static game boards, but also for tsume problems, thus user interaction may be considered. 
 
-As the game board is static, the notation `G:K-51` is currently utilized to import game boards, however `KIF` may be more suitable for future versions:
-
-```
-1 ７六歩(77)
-2 ３四歩(33)
-3 ７五歩(76)
-```
-
-Finally, presently the numbers 1-9 and 一, 二, 三, 四, 五, 六, 七, 八, 九 are not displayed to mark cell positions, this is something that could be offered as an optional boolean defaulting to `true`.
+Moreover, presently the numbers 1-9 and 一, 二, 三, 四, 五, 六, 七, 八, 九 are not displayed to mark cell positions, this is something that could be offered as an optional boolean defaulting to `true`.
 
 ## Raising Issues and Contributing
 
