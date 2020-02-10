@@ -4,7 +4,7 @@ import 'package:shogi/shogi.dart';
 class PackageUtils {
   /// Returns the piece at position (row, column), `null` if no piece exists
   static BoardPiece pieceAtPosition(List<BoardPiece> boardPieces, int row, int column) {
-    final result = boardPieces.where((piece) => piece.row == row && piece.column == column);
+    final result = boardPieces.where((piece) => piece.position.row == row && piece.position.column == column);
     return result.isNotEmpty ? result.first : null;
   }
 }

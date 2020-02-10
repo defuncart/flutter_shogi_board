@@ -1,3 +1,9 @@
+## [0.0.4] - 10/02/2020
+
+* Fixed shogi package version to use 0.2.0.
+* Added ability to show coordinate indicators on the board.
+* Updated example to show the animation of building a castle.
+
 ## [0.0.3] - 13/10/2019
 
 * Moved business logic components from this package to new shogi package.

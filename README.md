@@ -52,14 +52,16 @@ For more information, see the Flutter app in the `example` directory.
 
 The widget is designed to be used in portrait mode, and fills the board size to match it's parents width. The board pieces are rendered as text.
 
-| Parameter            | Description                                                                               |
-|:---------------------|:------------------------------------------------------------------------------------------|
-| `boardPieces`        | A `List<BoardPiece>` to render on the shogi game board.                                   |
-| `pieceColor`         | Optional. The standard piece color, defaults to black.                                    |
-| `promotedPieceColor` | Optional. The promoted piece color, defaults to red.                                      |
-| `cellColor`          | Optional. The board cell background color, defaults to transparent.                       |
-| `borderColor`        | Optional. The board cell background color, defaults to gray.                              |
-| `usesJapanese`       | Optional. Whether japanese characters or english letters are displayed, defaults to true. |
+| Parameter             | Description                                                                                |
+|:----------------------|:-------------------------------------------------------------------------------------------|
+| `boardPieces`         | A `List<BoardPiece>` to render on the shogi game board.                                    |
+| `pieceColor`          | Optional. The standard piece color, defaults to black.                                     |
+| `promotedPieceColor`  | Optional. The promoted piece color, defaults to red.                                       |
+| `cellColor`           | Optional. The board cell background color, defaults to transparent.                        |
+| `borderColor`         | Optional. The board cell background color, defaults to gray.                               |
+| `usesJapanese`        | Optional. Whether japanese characters or english letters are displayed, defaults to true.  |
+| `showCoordIndicators` | Optional. Whether board coordinate indicators should be shown, defaults to true.           |
+| `coordIndicatorType`  | Optional. The type of coordinate indicators show, defaults to CoordIndicatorType.japanese. |
 
 ## Importing a Game Board
 
@@ -86,9 +88,7 @@ final tsume1 = ['G:K-51', 'G:S-61', 'G:S-41', 'S:+P-53', 'S:+B-25'];
 
 This package grew out of my desired to visualize shogi castles in Flutter, and with no game board widget or even a shogi engine available, I decided to roll my own. The package [shogi](https://github.com/defuncart/shogi) contains the initial business logic from this package and will be simultaneously developed upon.
 
-For the future I would like to utilize this widget not just for displaying static game boards, but also for tsume problems, thus user interaction may be considered. 
-
-Moreover, presently the numbers 1-9 and 一, 二, 三, 四, 五, 六, 七, 八, 九 are not displayed to mark cell positions, this is something that could be offered as an optional boolean defaulting to `true`.
+For the future I would like to utilize this widget not just for displaying static game boards, but also for tsume problems, thus user interaction may be considered.
 
 ## Raising Issues and Contributing
 
