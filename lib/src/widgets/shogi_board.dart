@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:shogi/shogi.dart';
 
 import '../configs/board_colors.dart';
-import '../utils/package_utils.dart';
+import '../extensions/list_board_piece_extensions.dart';
 import '../widgets/board_cell.dart';
 import '../widgets/coord_indicator_cell.dart';
 
@@ -59,10 +59,9 @@ class ShogiBoard extends StatelessWidget {
         for (int y = 0; y < numberRows; y++) {
           List<Widget> row = List<Widget>(numberColumns);
           for (int x = numberColumns - 1; x >= 0; x--) {
-            final boardPiece = PackageUtils.pieceAtPosition(
-              gameBoard.boardPieces,
-              showCoordIndicators ? y : y + 1,
-              showCoordIndicators ? x : x + 1,
+            final boardPiece = gameBoard.boardPieces.pieceAtPosition(
+              column: showCoordIndicators ? x : x + 1,
+              row: showCoordIndicators ? y : y + 1,
             );
 
             row[numberColumns - 1 - x] = showCoordIndicators && (y == 0 || x == 0)
