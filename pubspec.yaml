@@ -4,13 +4,16 @@ version: 0.0.4
 homepage: https://github.com/defuncart/flutter_shogi_board
 
 environment:
-  sdk: ">=2.3.0 <3.0.0"
+  sdk: ">=2.6.0 <3.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
   meta: ^1.1.6
-  shogi: 0.0.2
+  shogi:
+    git:
+      url: https://github.com/defuncart/shogi/
+      ref: master
 
 dev_dependencies:
   flutter_test:
