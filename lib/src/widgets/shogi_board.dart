@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:shogi/shogi.dart';
 
@@ -8,8 +10,8 @@ import '../widgets/coord_indicator_cell.dart';
 
 /// Renders a shogi board using a list of board pieces
 class ShogiBoard extends StatelessWidget {
-  /// A list of board pieces
-  final List<BoardPiece> boardPieces;
+  /// The game board to render
+  final GameBoard gameBoard;
 
   /// The color of each standard piece on the board
   final Color pieceColor;
@@ -33,7 +35,7 @@ class ShogiBoard extends StatelessWidget {
   final CoordIndicatorType coordIndicatorType;
 
   const ShogiBoard({
-    @required this.boardPieces,
+    @required this.gameBoard,
     this.pieceColor = BoardColors.black,
     this.promotedPieceColor = BoardColors.red,
     this.cellColor = Colors.transparent,
@@ -51,21 +53,25 @@ class ShogiBoard extends StatelessWidget {
 
     return LayoutBuilder(
       builder: (_, constraints) {
-        final size = (constraints.hasBoundedWidth ? constraints.maxWidth : constraints.maxHeight) / numberRows;
+        final size = min(constraints.maxWidth, constraints.maxHeight) / numberRows;
 
         List<Widget> rows = List<Widget>(numberRows);
         for (int y = 0; y < numberRows; y++) {
           List<Widget> row = List<Widget>(numberColumns);
           for (int x = numberColumns - 1; x >= 0; x--) {
             final boardPiece = PackageUtils.pieceAtPosition(
-              boardPieces,
+              gameBoard.boardPieces,
               showCoordIndicators ? y : y + 1,
               showCoordIndicators ? x : x + 1,
             );
 
             row[numberColumns - 1 - x] = showCoordIndicators && (y == 0 || x == 0)
                 ? CoordIndicatorCell(
-                    size: size, coord: y == 0 ? x : y, isTop: y == 0, coordIndicatorType: coordIndicatorType)
+                    size: size,
+                    coord: y == 0 ? x : y,
+                    isTop: y == 0,
+                    coordIndicatorType: coordIndicatorType,
+                  )
                 : BoardCell(
                     boardPiece: boardPiece?.displayString(usesJapanese: usesJapanese) ?? '',
                     sente: boardPiece?.isSente ?? true,
@@ -90,7 +96,7 @@ class ShogiBoard extends StatelessWidget {
         return AspectRatio(
           aspectRatio: 1.0,
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            // mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: rows,
           ),
         );
