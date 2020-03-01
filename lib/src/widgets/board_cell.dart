@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 
 /// A model used to determine on which edge exteremes a board cell lies on.
@@ -70,9 +71,13 @@ class BoardCell extends StatelessWidget {
         child: Center(
           child: RotatedBox(
             quarterTurns: sente ? 0 : 2,
-            child: Text(
+            child: AutoSizeText(
               boardPiece,
-              style: Theme.of(context).textTheme.headline.copyWith(color: pieceColor),
+              style: TextStyle(
+                color: pieceColor,
+                fontSize: 60,
+              ),
+              minFontSize: 10,
             ),
           ),
         ),
