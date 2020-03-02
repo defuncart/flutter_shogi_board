@@ -72,8 +72,8 @@ class ShogiBoard extends StatelessWidget {
                     coordIndicatorType: coordIndicatorType,
                   )
                 : BoardCell(
-                    boardPiece: boardPiece?.displayString(usesJapanese: usesJapanese) ?? '',
-                    sente: boardPiece?.isSente ?? true,
+                    boardPiece: boardPiece?.displayString(usesJapanese: usesJapanese),
+                    isSente: boardPiece?.isSente,
                     size: size,
                     edge: Edge(
                       top: y == (showCoordIndicators ? 1 : 0),

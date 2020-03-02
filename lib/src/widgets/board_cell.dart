@@ -1,5 +1,7 @@
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+
+import 'piece.dart';
+import '../extensions/string_extensions.dart';
 
 /// A model used to determine on which edge exteremes a board cell lies on.
 class Edge {
@@ -22,7 +24,7 @@ class BoardCell extends StatelessWidget {
   final String boardPiece;
 
   /// Whether the piece belogns to sente (i.e. black, facing upwards)
-  final bool sente;
+  final bool isSente;
 
   /// The cell's size (width, height)
   final double size;
@@ -41,14 +43,18 @@ class BoardCell extends StatelessWidget {
 
   const BoardCell({
     Key key,
-    @required this.boardPiece,
-    @required this.sente,
+    this.boardPiece,
+    this.isSente,
     @required this.size,
     @required this.edge,
-    @required this.pieceColor,
+    this.pieceColor,
     @required this.cellColor,
     @required this.borderColor,
-  }) : super(key: key);
+  })  : assert(size != null && size > 0),
+        assert(edge != null),
+        assert(cellColor != null),
+        assert(borderColor != null),
+        super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -68,19 +74,14 @@ class BoardCell extends StatelessWidget {
           ),
           color: cellColor,
         ),
-        child: Center(
-          child: RotatedBox(
-            quarterTurns: sente ? 0 : 2,
-            child: AutoSizeText(
-              boardPiece,
-              style: TextStyle(
-                color: pieceColor,
-                fontSize: 60,
-              ),
-              minFontSize: 10,
-            ),
-          ),
-        ),
+        child: boardPiece.isNotNullNorEmpty
+            ? Piece(
+                boardPiece: boardPiece,
+                isSente: isSente,
+                size: size,
+                pieceColor: pieceColor,
+              )
+            : null,
       ),
     );
   }
