@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'piece.dart';
-import '../extensions/string_extensions.dart';
-
 /// A model used to determine on which edge exteremes a board cell lies on.
 class Edge {
   final bool top;
@@ -18,22 +15,13 @@ class Edge {
   });
 }
 
-/// Renders a board cell with a given size and text contents
+/// Renders a board cell with an optional child content
 class BoardCell extends StatelessWidget {
-  /// The board piece as a text string
-  final String boardPiece;
-
-  /// Whether the piece belogns to sente (i.e. black, facing upwards)
-  final bool isSente;
-
   /// The cell's size (width, height)
   final double size;
 
   /// Which edge(s) of the board the cell lies on
   final Edge edge;
-
-  /// The color of the piece
-  final Color pieceColor;
 
   /// The color of the cell
   final Color cellColor;
@@ -41,15 +29,16 @@ class BoardCell extends StatelessWidget {
   /// The color of the cell's border
   final Color borderColor;
 
+  /// The child content to display (can be `null`)
+  final Widget child;
+
   const BoardCell({
     Key key,
-    this.boardPiece,
-    this.isSente,
     @required this.size,
     @required this.edge,
-    this.pieceColor,
     @required this.cellColor,
     @required this.borderColor,
+    this.child,
   })  : assert(size != null && size > 0),
         assert(edge != null),
         assert(cellColor != null),
@@ -74,14 +63,7 @@ class BoardCell extends StatelessWidget {
           ),
           color: cellColor,
         ),
-        child: boardPiece.isNotNullNorEmpty
-            ? Piece(
-                boardPiece: boardPiece,
-                isSente: isSente,
-                size: size,
-                pieceColor: pieceColor,
-              )
-            : null,
+        child: child,
       ),
     );
   }

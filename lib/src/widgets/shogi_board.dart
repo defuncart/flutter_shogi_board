@@ -3,10 +3,11 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:shogi/shogi.dart';
 
+import 'board_cell.dart';
+import 'coord_indicator_cell.dart';
+import 'piece.dart';
 import '../configs/board_colors.dart';
 import '../extensions/list_board_piece_extensions.dart';
-import '../widgets/board_cell.dart';
-import '../widgets/coord_indicator_cell.dart';
 
 /// Renders a shogi board using a list of board pieces
 class ShogiBoard extends StatelessWidget {
@@ -72,8 +73,6 @@ class ShogiBoard extends StatelessWidget {
                     coordIndicatorType: coordIndicatorType,
                   )
                 : BoardCell(
-                    boardPiece: boardPiece?.displayString(usesJapanese: usesJapanese),
-                    isSente: boardPiece?.isSente,
                     size: size,
                     edge: Edge(
                       top: y == (showCoordIndicators ? 1 : 0),
@@ -81,9 +80,16 @@ class ShogiBoard extends StatelessWidget {
                       left: x == numberColumns - 1,
                       right: x == (showCoordIndicators ? 1 : 0),
                     ),
-                    pieceColor: boardPiece != null ? (boardPiece.isPromoted ? promotedPieceColor : pieceColor) : null,
                     cellColor: cellColor,
                     borderColor: borderColor,
+                    child: boardPiece != null
+                        ? Piece(
+                            boardPiece: boardPiece.displayString(usesJapanese: usesJapanese),
+                            isSente: boardPiece.isSente,
+                            size: size,
+                            pieceColor: boardPiece.isPromoted ? promotedPieceColor : pieceColor,
+                          )
+                        : null,
                   );
           }
           rows[y] = Row(
