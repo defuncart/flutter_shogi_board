@@ -19,7 +19,7 @@ class _Demo extends StatefulWidget {
 
 class __DemoState extends State<_Demo> {
   List<Move> moves;
-  List<BoardPiece> boardPieces;
+  GameBoard gameBoard;
 
   @override
   void initState() {
@@ -41,7 +41,7 @@ class __DemoState extends State<_Demo> {
 13: ☗K79-88
 """;
     moves = CustomNotationConverter().movesFromFile(game);
-    boardPieces = ShogiUtils.stringArrayToBoardPiecesArray(GameBoards.initialBoardSente);
+    gameBoard = ShogiUtils.stringArrayToGameBoard(StaticGameBoards.initialBoardSente);
 
     playSequence();
   }
@@ -53,7 +53,7 @@ class __DemoState extends State<_Demo> {
 
     for (final move in moves) {
       setState(() {
-        boardPieces = GameEngine.makeMove(boardPieces, move);
+        gameBoard = GameEngine.makeMove(gameBoard, move);
       });
 
       await Future.delayed(duration);
@@ -67,7 +67,7 @@ class __DemoState extends State<_Demo> {
         padding: const EdgeInsets.all(8.0),
         child: Center(
           child: ShogiBoard(
-            boardPieces: boardPieces,
+            gameBoard: gameBoard,
           ),
         ),
       ),

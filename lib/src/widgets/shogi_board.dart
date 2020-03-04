@@ -1,15 +1,20 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:shogi/shogi.dart';
 
+import 'board_cell.dart';
+import 'coord_indicator_cell.dart';
+import 'piece.dart';
+import 'piece_in_hand.dart';
 import '../configs/board_colors.dart';
-import '../utils/package_utils.dart';
-import '../widgets/board_cell.dart';
-import '../widgets/coord_indicator_cell.dart';
+import '../extensions/list_board_piece_extensions.dart';
+import '../extensions/list_extensions.dart';
 
 /// Renders a shogi board using a list of board pieces
 class ShogiBoard extends StatelessWidget {
-  /// A list of board pieces
-  final List<BoardPiece> boardPieces;
+  /// The game board to render
+  final GameBoard gameBoard;
 
   /// The color of each standard piece on the board
   final Color pieceColor;
@@ -32,8 +37,14 @@ class ShogiBoard extends StatelessWidget {
   /// The type of coordinate indicators show. Defaults to `CoordIndicatorType.japanese`.
   final CoordIndicatorType coordIndicatorType;
 
+  /// Whether pieces in hand should be shown. Defaults to `true`.
+  ///
+  /// Although this is the expected behavior in a game, in a castle situation it could set to `false`, for example.
+  final bool showPiecesInHand;
+
   const ShogiBoard({
-    @required this.boardPieces,
+    Key key,
+    @required this.gameBoard,
     this.pieceColor = BoardColors.black,
     this.promotedPieceColor = BoardColors.red,
     this.cellColor = Colors.transparent,
@@ -41,7 +52,7 @@ class ShogiBoard extends StatelessWidget {
     this.usesJapanese = true,
     this.showCoordIndicators = true,
     this.coordIndicatorType = CoordIndicatorType.japanese,
-    Key key,
+    this.showPiecesInHand = true,
   }) : super(key: key);
 
   @override
@@ -51,24 +62,26 @@ class ShogiBoard extends StatelessWidget {
 
     return LayoutBuilder(
       builder: (_, constraints) {
-        final size = (constraints.hasBoundedWidth ? constraints.maxWidth : constraints.maxHeight) / numberRows;
+        final size = min(constraints.maxWidth, constraints.maxHeight) / (numberRows + (showPiecesInHand ? 2 : 0));
+        final aspectRatio = numberColumns / (numberRows + (showPiecesInHand ? 2 : 0));
 
         List<Widget> rows = List<Widget>(numberRows);
         for (int y = 0; y < numberRows; y++) {
           List<Widget> row = List<Widget>(numberColumns);
           for (int x = numberColumns - 1; x >= 0; x--) {
-            final boardPiece = PackageUtils.pieceAtPosition(
-              boardPieces,
-              showCoordIndicators ? y : y + 1,
-              showCoordIndicators ? x : x + 1,
+            final boardPiece = gameBoard.boardPieces.pieceAtPosition(
+              column: showCoordIndicators ? x : x + 1,
+              row: showCoordIndicators ? y : y + 1,
             );
 
             row[numberColumns - 1 - x] = showCoordIndicators && (y == 0 || x == 0)
                 ? CoordIndicatorCell(
-                    size: size, coord: y == 0 ? x : y, isTop: y == 0, coordIndicatorType: coordIndicatorType)
+                    size: size,
+                    coord: y == 0 ? x : y,
+                    isTop: y == 0,
+                    coordIndicatorType: coordIndicatorType,
+                  )
                 : BoardCell(
-                    boardPiece: boardPiece?.displayString(usesJapanese: usesJapanese) ?? '',
-                    sente: boardPiece?.isSente ?? true,
                     size: size,
                     edge: Edge(
                       top: y == (showCoordIndicators ? 1 : 0),
@@ -76,9 +89,16 @@ class ShogiBoard extends StatelessWidget {
                       left: x == numberColumns - 1,
                       right: x == (showCoordIndicators ? 1 : 0),
                     ),
-                    pieceColor: boardPiece != null ? (boardPiece.isPromoted ? promotedPieceColor : pieceColor) : null,
                     cellColor: cellColor,
                     borderColor: borderColor,
+                    child: boardPiece != null
+                        ? Piece(
+                            boardPiece: boardPiece.displayString(usesJapanese: usesJapanese),
+                            isSente: boardPiece.isSente,
+                            size: size,
+                            pieceColor: boardPiece.isPromoted ? promotedPieceColor : pieceColor,
+                          )
+                        : null,
                   );
           }
           rows[y] = Row(
@@ -88,13 +108,86 @@ class ShogiBoard extends StatelessWidget {
         }
 
         return AspectRatio(
-          aspectRatio: 1.0,
+          aspectRatio: aspectRatio,
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: rows,
+            children: <Widget>[
+              if (showPiecesInHand)
+                _PiecesInHand(
+                  pieces: gameBoard.sentePiecesInHand
+                      .map((p) => p.displayString(usesJapanese: usesJapanese))
+                      .toList()
+                      .convertToMapWithCountUniqueElements(),
+                  isSente: false,
+                  size: size,
+                  pieceColor: pieceColor,
+                ),
+              ...rows,
+              if (showPiecesInHand)
+                _PiecesInHand(
+                  pieces: gameBoard.gotePiecesInHand
+                      .map((p) => p.displayString(usesJapanese: usesJapanese))
+                      .toList()
+                      .convertToMapWithCountUniqueElements(),
+                  isSente: true,
+                  size: size,
+                  pieceColor: pieceColor,
+                ),
+            ],
           ),
         );
       },
     );
+  }
+}
+
+/// Renders a row of pieces in hand
+class _PiecesInHand extends StatelessWidget {
+  /// A map of pieces and their count
+  final Map<String, int> pieces;
+
+  /// Whether the piece belongs to sente (facing upwards)
+  final bool isSente;
+
+  /// The cell's size (width, height)
+  final double size;
+
+  /// The color of the piece
+  final Color pieceColor;
+
+  const _PiecesInHand({
+    this.pieces,
+    @required this.isSente,
+    @required this.size,
+    @required this.pieceColor,
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return pieces.length > 0
+        ? Align(
+            alignment: isSente ? Alignment.centerRight : Alignment.centerLeft,
+            child: Container(
+              height: size,
+              child: Row(
+                mainAxisAlignment: isSente ? MainAxisAlignment.end : MainAxisAlignment.start,
+                children: <Widget>[
+                  for (final kvp in pieces.entries)
+                    PieceInHand(
+                      boardPiece: kvp.key,
+                      count: kvp.value,
+                      isSente: isSente,
+                      size: size,
+                      pieceColor: pieceColor,
+                      countColor: BoardColors.red,
+                    )
+                ],
+              ),
+            ),
+          )
+        : Container(
+            width: double.infinity,
+            height: size,
+          );
   }
 }
