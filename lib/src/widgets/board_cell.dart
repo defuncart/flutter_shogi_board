@@ -72,7 +72,7 @@ class BoardCell extends StatelessWidget {
             quarterTurns: sente ? 0 : 2,
             child: Text(
               boardPiece,
-              style: Theme.of(context).textTheme.headline5.copyWith(color: pieceColor),
+              style: Theme.of(context).textTheme.headline.copyWith(color: pieceColor),
             ),
           ),
         ),
