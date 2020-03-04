@@ -46,7 +46,7 @@ void main() {
 }
 ```
 
-For more information, see the Flutter app in the `example` directory.
+For more information, see the Flutter app in the `example` directory. This example is also hosted [online](http://defuncart.com/flutter_shogi_board/).
 
 ## Game Board Parameters
 
@@ -62,6 +62,7 @@ The widget is designed to be used in portrait mode, and fills the board size to 
 | `usesJapanese`        | Optional. Whether japanese characters or english letters are displayed, defaults to true.  |
 | `showCoordIndicators` | Optional. Whether board coordinate indicators should be shown, defaults to true.           |
 | `coordIndicatorType`  | Optional. The type of coordinate indicators show, defaults to CoordIndicatorType.japanese. |
+| `showPiecesInHand`    | Optional. Whether pieces in hand should be shown, defaults to true.                        |
 
 ## Importing a Game Board
 

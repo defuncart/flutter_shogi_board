@@ -113,7 +113,7 @@ class ShogiBoard extends StatelessWidget {
             children: <Widget>[
               if (showPiecesInHand)
                 _PiecesInHand(
-                  pieces: gameBoard.sentePiecesInHand
+                  pieces: gameBoard.gotePiecesInHand
                       .map((p) => p.displayString(usesJapanese: usesJapanese))
                       .toList()
                       .convertToMapWithCountUniqueElements(),
@@ -124,7 +124,7 @@ class ShogiBoard extends StatelessWidget {
               ...rows,
               if (showPiecesInHand)
                 _PiecesInHand(
-                  pieces: gameBoard.gotePiecesInHand
+                  pieces: gameBoard.sentePiecesInHand
                       .map((p) => p.displayString(usesJapanese: usesJapanese))
                       .toList()
                       .convertToMapWithCountUniqueElements(),

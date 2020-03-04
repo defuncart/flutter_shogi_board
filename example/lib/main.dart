@@ -5,27 +5,57 @@ import 'package:shogi/shogi.dart';
 void main() {
   runApp(
     MaterialApp(
-      home: _Demo(),
+      home: _HomeScreen(),
     ),
   );
 }
 
-class _Demo extends StatefulWidget {
-  _Demo({Key key}) : super(key: key);
+class _HomeScreen extends StatelessWidget {
+  final Map<String, Function(BuildContext)> routes = {
+    'Yagura castle building animation': (context) => _showPage(context, _CastleBuildingAnimation()),
+    'Tsume (5手詰）': (context) => _showPage(context, _Tsume()),
+  };
+
+  static void _showPage(BuildContext context, Widget page) =>
+      Navigator.of(context).push(MaterialPageRoute(builder: (_) => page));
+
+  _HomeScreen({Key key}) : super(key: key);
 
   @override
-  __DemoState createState() => __DemoState();
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('flutter_shogi_board'),
+      ),
+      body: ListView.builder(
+        itemCount: routes.length,
+        itemBuilder: (_, index) => ListTile(
+          title: Text(routes.keys.toList()[index]),
+          trailing: Icon(Icons.navigate_next),
+          onTap: () => routes.values.toList()[index](context),
+        ),
+      ),
+    );
+  }
 }
 
-class __DemoState extends State<_Demo> {
+class _CastleBuildingAnimation extends StatefulWidget {
+  _CastleBuildingAnimation({Key key}) : super(key: key);
+
+  @override
+  _CastleBuildingAnimationState createState() => _CastleBuildingAnimationState();
+}
+
+class _CastleBuildingAnimationState extends State<_CastleBuildingAnimation> {
   List<Move> moves;
   GameBoard gameBoard;
+  bool _isDisposed = false;
 
   @override
   void initState() {
     super.initState();
 
-    String game = """
+    final game = """
 1: ☗P77-76
 2: ☗S79-68
 3: ☗S68-77
@@ -41,9 +71,16 @@ class __DemoState extends State<_Demo> {
 13: ☗K79-88
 """;
     moves = CustomNotationConverter().movesFromFile(game);
-    gameBoard = ShogiUtils.stringArrayToGameBoard(StaticGameBoards.initialBoardSente);
+    gameBoard = ShogiUtils.initialBoard;
 
     playSequence();
+  }
+
+  @override
+  void dispose() {
+    _isDisposed = true;
+
+    super.dispose();
   }
 
   Future<void> playSequence() async {
@@ -52,22 +89,71 @@ class __DemoState extends State<_Demo> {
     await Future.delayed(duration);
 
     for (final move in moves) {
-      setState(() {
-        gameBoard = GameEngine.makeMove(gameBoard, move);
-      });
+      if (_isDisposed) {
+        return;
+      }
+
+      setState(
+        () => gameBoard = GameEngine.makeMove(gameBoard, move),
+      );
 
       await Future.delayed(duration);
     }
+
+    if (_isDisposed) {
+      return;
+    }
+
+    setState(
+      () => gameBoard = ShogiUtils.stringArrayToGameBoard(StaticGameBoards.yagura),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Center(
           child: ShogiBoard(
             gameBoard: gameBoard,
+            showPiecesInHand: false,
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _Tsume extends StatelessWidget {
+  const _Tsume({Key key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final gameBoard = GameBoard(
+      boardPieces: ShogiUtils.stringArrayToBoardPiecesArray([
+        '☗:S-14',
+        '☗:+R-53',
+        '☖:K-24',
+        '☖:G-16',
+      ]),
+      sentePiecesInHand: [
+        BoardPiece(player: PlayerType.sente, pieceType: PieceType.gold, position: null),
+        BoardPiece(player: PlayerType.sente, pieceType: PieceType.silver, position: null),
+      ],
+      gotePiecesInHand: [],
+    );
+
+    return Scaffold(
+      appBar: AppBar(),
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Center(
+          child: ShogiBoard(
+            gameBoard: gameBoard,
+            cellColor: BoardColors.brown,
+            showCoordIndicators: false,
           ),
         ),
       ),

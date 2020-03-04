@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_shogi_board/src/widgets/piece.dart';
 
@@ -5,6 +6,15 @@ import 'package:flutter_shogi_board/src/widgets/piece.dart';
 class PieceInHand extends StatelessWidget {
   /// A multiplier to render the text smaller than for a normal piece
   static const _sizeMultiplier = 0.8;
+
+  /// A multiplier for the count container size
+  static const _countContainerSizeMultiplier = 0.35;
+
+  /// The maximum font size (count)
+  static const _maxFontSize = 30.0;
+
+  /// The minimum font size (count)
+  static const _minFontSize = 6.0;
 
   /// The board piece as a text string
   final String boardPiece;
@@ -51,18 +61,23 @@ class PieceInHand extends StatelessWidget {
           size: size * _sizeMultiplier,
           pieceColor: pieceColor,
         ),
-        Align(
-          alignment: isSente ? Alignment.topRight : Alignment.bottomLeft,
-          child: RotatedBox(
-            quarterTurns: isSente ? 0 : 2,
-            child: Text(
-              count.toString(),
-              style: TextStyle(
-                color: countColor,
+        if (count > 1)
+          Container(
+            width: size * _countContainerSizeMultiplier,
+            height: size * _countContainerSizeMultiplier,
+            alignment: isSente ? Alignment.topRight : Alignment.bottomLeft,
+            child: RotatedBox(
+              quarterTurns: isSente ? 0 : 2,
+              child: AutoSizeText(
+                count.toString(),
+                style: TextStyle(
+                  color: countColor,
+                  fontSize: _maxFontSize,
+                ),
+                minFontSize: _minFontSize,
               ),
             ),
           ),
-        ),
       ],
     );
   }
