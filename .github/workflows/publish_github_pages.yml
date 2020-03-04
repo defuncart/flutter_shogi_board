@@ -1,0 +1,28 @@
+name: publish_github_pages
+on: [push]
+jobs:
+  build:
+    name: Build for Web
+    env:
+      my_secret: ${{secrets.commit}}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: subosito/flutter-action@v1
+        with:
+          channel: 'dev'
+      - run: flutter config --enable-web
+      - run: flutter pub get
+      - run: cd example 
+      - run: flutter build web --release
+      - run: |
+          cd build/web
+          git init
+          git config --global user.email defuncart@gmail.com
+          git config --global user.name James Leahy
+          git status
+          git remote add origin https://${{secrets.commit}}@github.com/defuncart/flutter_shogi_board.git
+          git checkout -b gh-pages
+          git add -A
+          git commit -m "`date`"
+          git push origin gh-pages -f
