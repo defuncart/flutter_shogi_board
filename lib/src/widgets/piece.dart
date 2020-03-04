@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 /// Renders a given board piece as text
 class Piece extends StatelessWidget {
   /// The maximum font size
-  static const maxFontSize = 60.0;
+  static const _maxFontSize = 60.0;
 
   /// The minimum font size
-  static const minFontSize = 10.0;
+  static const _minFontSize = 10.0;
 
   /// The board piece as a text string
   final String boardPiece;
@@ -45,9 +45,9 @@ class Piece extends StatelessWidget {
             boardPiece,
             style: TextStyle(
               color: pieceColor,
-              fontSize: maxFontSize,
+              fontSize: _maxFontSize,
             ),
-            minFontSize: minFontSize,
+            minFontSize: _minFontSize,
           ),
         ),
       ),
