@@ -131,19 +131,17 @@ class _Tsume extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final gameBoard = GameBoard(
-      boardPieces: ShogiUtils.stringArrayToBoardPiecesArray([
+    final boardPieces = [
+      ...ShogiUtils.stringArrayToBoardPiecesArray([
         '☗:S-14',
         '☗:+R-53',
         '☖:K-24',
         '☖:G-16',
       ]),
-      sentePiecesInHand: [
-        BoardPiece(player: PlayerType.sente, pieceType: PieceType.gold, position: null),
-        BoardPiece(player: PlayerType.sente, pieceType: PieceType.silver, position: null),
-      ],
-      gotePiecesInHand: [],
-    );
+      BoardPiece(player: PlayerType.sente, pieceType: PieceType.gold, position: null),
+      BoardPiece(player: PlayerType.sente, pieceType: PieceType.silver, position: null),
+    ];
+    final gameBoard = GameBoard(boardPieces: boardPieces);
 
     return Scaffold(
       appBar: AppBar(),
