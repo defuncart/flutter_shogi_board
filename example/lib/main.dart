@@ -13,7 +13,7 @@ void main() {
 class _HomeScreen extends StatelessWidget {
   final Map<String, Function(BuildContext)> routes = {
     'Yagura castle building animation': (context) => _showPage(context, _CastleBuildingAnimation()),
-    'Tsume (5手詰）': (context) => _showPage(context, _Tsume()),
+    'Tsume (5手詰)': (context) => _showPage(context, _Tsume()),
   };
 
   static void _showPage(BuildContext context, Widget page) =>
@@ -150,8 +150,10 @@ class _Tsume extends StatelessWidget {
         child: Center(
           child: ShogiBoard(
             gameBoard: gameBoard,
-            cellColor: BoardColors.brown,
-            showCoordIndicators: false,
+            style: ShogiBoardStyle(
+              cellColor: BoardColors.brown,
+              showCoordIndicators: false,
+            ),
           ),
         ),
       ),
