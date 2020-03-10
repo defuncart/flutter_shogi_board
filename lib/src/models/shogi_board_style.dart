@@ -3,19 +3,19 @@ import 'package:flutter/material.dart';
 import '../configs/board_colors.dart';
 import '../widgets/coord_indicator_cell.dart';
 
-/// A model used to paint a `ShogiBoard`
+/// A model used to paint a `ShogiBoard`.
 @immutable
 class ShogiBoardStyle {
-  /// The color of each standard piece on the board
+  /// The color of each standard piece on the board.
   final Color pieceColor;
 
-  /// The color of each promoted piece on the board
+  /// The color of each promoted piece on the board.
   final Color promotedPieceColor;
 
-  /// The color of each cell on the board
+  /// The color of each cell on the board.
   final Color cellColor;
 
-  /// The color of each cell's border
+  /// The color of each cell's border.
   final Color borderColor;
 
   /// Whether japanese characters (i.e. 玉) or latin letters (i.e. K) should be used. Defaults to `true`.
@@ -42,4 +42,24 @@ class ShogiBoardStyle {
         assert(usesJapanese != null),
         assert(showCoordIndicators != null),
         assert(coordIndicatorType != null);
+
+  /// Creates a copy of this `ShogiBoardStyle` but with the given fields replaced with the new values.
+  ShogiBoardStyle copyWith({
+    Color pieceColor,
+    Color promotedPieceColor,
+    Color cellColor,
+    Color borderColor,
+    bool usesJapanese,
+    bool showCoordIndicators,
+    CoordIndicatorType coordIndicatorType,
+  }) =>
+      ShogiBoardStyle(
+        pieceColor: pieceColor ?? this.pieceColor,
+        promotedPieceColor: promotedPieceColor ?? this.promotedPieceColor,
+        cellColor: cellColor ?? this.cellColor,
+        borderColor: borderColor ?? this.borderColor,
+        usesJapanese: usesJapanese ?? this.usesJapanese,
+        showCoordIndicators: showCoordIndicators ?? this.showCoordIndicators,
+        coordIndicatorType: coordIndicatorType ?? this.coordIndicatorType,
+      );
 }
