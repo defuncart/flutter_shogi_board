@@ -26,7 +26,7 @@ packages:
       path: ".."
       relative: true
     source: path
-    version: "0.0.4"
+    version: "0.0.5"
   meta:
     dependency: transitive
     description:
@@ -37,12 +37,10 @@ packages:
   shogi:
     dependency: transitive
     description:
-      path: "."
-      ref: master
-      resolved-ref: "119821fd107d627907f9836f680b6066f4803258"
-      url: "https://github.com/defuncart/shogi/"
-    source: git
-    version: "0.0.2"
+      name: shogi
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.0.3"
   sky_engine:
     dependency: transitive
     description: flutter

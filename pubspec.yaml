@@ -1,6 +1,6 @@
 name: flutter_shogi_board
 description: A shogi board widget for Flutter. This widget can be used to render static game board positions, tsume problems or shogi castles.
-version: 0.0.4
+version: 0.0.5
 homepage: https://github.com/defuncart/flutter_shogi_board
 
 environment:
@@ -10,10 +10,7 @@ dependencies:
   flutter:
     sdk: flutter
   meta: ^1.1.6
-  shogi:
-    git:
-      url: https://github.com/defuncart/shogi/
-      ref: master
+  shogi: 0.0.3
   auto_size_text: ^2.1.0
 
 dev_dependencies:
