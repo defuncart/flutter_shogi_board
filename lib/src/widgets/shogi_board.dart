@@ -45,9 +45,21 @@ class ShogiBoard extends StatelessWidget {
 
     return LayoutBuilder(
       builder: (_, constraints) {
-        final size = min(constraints.maxWidth, constraints.maxHeight) / (numberRows + (showPiecesInHand ? 2 : 0));
-        final aspectRatio = numberColumns / (numberRows + (showPiecesInHand ? 2 : 0));
+        // determine the maximum size of the board. this is the min of the style.maxSize and device/layout max width, max height
+        final maxSize = min(
+          style.maxSize,
+          min(
+            min(constraints.maxWidth, MediaQuery.of(context).size.width),
+            min(constraints.maxHeight, MediaQuery.of(context).size.height),
+          ),
+        );
+        // determine the size per each board element
+        final size = maxSize / (numberRows + (showPiecesInHand ? 2 : 0));
+        // determine the total width and height of the board
+        final totalWidth = size * numberColumns;
+        final totalHeight = size * (numberRows + (showPiecesInHand ? 2 : 0));
 
+        // determine rows of widgets
         List<Widget> rows = List<Widget>(numberRows);
         for (int y = 0; y < numberRows; y++) {
           List<Widget> row = List<Widget>(numberColumns);
@@ -85,13 +97,14 @@ class ShogiBoard extends StatelessWidget {
                   );
           }
           rows[y] = Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: row,
           );
         }
 
-        return AspectRatio(
-          aspectRatio: aspectRatio,
+        // construct board
+        return Container(
+          width: totalWidth,
+          height: totalHeight,
           child: Column(
             children: <Widget>[
               if (showPiecesInHand)
@@ -138,11 +151,11 @@ class _PiecesInHand extends StatelessWidget {
   final Color pieceColor;
 
   const _PiecesInHand({
+    Key key,
     this.pieces,
     @required this.isSente,
     @required this.size,
     @required this.pieceColor,
-    Key key,
   }) : super(key: key);
 
   @override
