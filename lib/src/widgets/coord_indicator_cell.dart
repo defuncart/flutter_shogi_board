@@ -11,6 +11,10 @@ enum CoordIndicatorType {
 
 /// Renders a coordinate indicator cell with a given size and text contents
 class CoordIndicatorCell extends StatelessWidget {
+  // TODO consider moving to a config & updating Piece
+  /// A multiplier to determine font size based on cell size
+  static const _fontSizeMultiplier = 0.325;
+
   /// The cell's size (width, height)
   final double size;
 
@@ -59,10 +63,14 @@ class CoordIndicatorCell extends StatelessWidget {
           ? Container()
           : Padding(
               padding: const EdgeInsets.all(4.0),
-              child: Center(
+              child: Align(
+                alignment: isTop ? Alignment.bottomCenter : Alignment.centerLeft,
                 child: Text(
                   text,
-                  style: Theme.of(context).textTheme.body1.copyWith(color: color),
+                  style: TextStyle(
+                    color: color,
+                    fontSize: size * _fontSizeMultiplier,
+                  ),
                 ),
               ),
             ),

@@ -39,7 +39,7 @@ packages:
     description:
       path: "."
       ref: master
-      resolved-ref: "916878d7d0e01554ffbf62ff5a61fdafcc244d02"
+      resolved-ref: "119821fd107d627907f9836f680b6066f4803258"
       url: "https://github.com/defuncart/shogi/"
     source: git
     version: "0.0.2"
