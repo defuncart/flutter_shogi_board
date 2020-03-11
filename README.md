@@ -1,10 +1,12 @@
 # flutter_shogi_board
 
-A shogi board widget for Flutter. This widget can be used to render static game board positions, tsume problems or shogi castles.
+A shogi board widget for Flutter. This widget can be used in conjunction with [*shogi*](https://pub.dev/packages/shogi) to render static game board positions, tsume problems or shogi castles.
 
 ![](images/01.png)
 
-Shogi (将棋) is a two-player strategy board game native to Japan, belonging to the same family as chess and xiangqi. 
+Shogi (将棋) is a two-player strategy board game native to Japan, belonging to the same family as chess and xiangqi.
+
+Presently the package is very basic in which it can determine the static board position for a given game and move pieces from one position to another. As it is still highly experimental, 0.0.x versioning is used. *shogi* is also in active development and similarly versioned.
 
 ## Getting Started
 
@@ -19,7 +21,7 @@ dependencies:
   flutter_shogi_board:
 ```
 
-Note that this package requires dart >= 2.3.0.
+Note that this package requires dart >= 2.6.0.
 
 ### Example
 
@@ -36,7 +38,7 @@ void main() {
           padding: const EdgeInsets.all(8.0),
           child: Center(
             child: ShogiBoard(
-              boardPieces: ShogiUtils.initialBoard,
+              gameBoard: ShogiUtils.initialBoard,
             ),
           ),
         ),
@@ -48,13 +50,25 @@ void main() {
 
 For more information, see the Flutter app in the `example` directory. This example is also hosted [online](http://defuncart.com/flutter_shogi_board/).
 
-## Game Board Parameters
+## Basic Usage
 
-The widget is designed to be used in portrait mode, and fills the board size to match it's parents width. The board pieces are rendered as text.
+### ShogiGameBoard
+
+This widget renders a shogi game board using a `GameBoard` and `ShogiBoardStyle`. Unless `style.maxSize` is set, it fills its maximum size to that of its parent. The board pieces are rendered as text.
 
 | Parameter             | Description                                                                                |
 |:----------------------|:-------------------------------------------------------------------------------------------|
-| `boardPieces`         | A `List<BoardPiece>` to render on the shogi game board.                                    |
+| `gameBoard`           | A `GameBoard` to render.                                                                   |
+| `style`               | Optional. A style to render the shogi board, defaults to constants listed below.           |
+| `showPiecesInHand`    | Optional. Whether pieces in hand should be shown, defaults to true.                        |
+
+### ShogiBoardStyle
+
+A model used to paint a `ShogiBoard`.
+
+| Parameter             | Description                                                                                |
+|:----------------------|:-------------------------------------------------------------------------------------------|
+| `maxSize`             | The maximum size of the board. Defaults to double.infinity.                                |
 | `pieceColor`          | Optional. The standard piece color, defaults to black.                                     |
 | `promotedPieceColor`  | Optional. The promoted piece color, defaults to red.                                       |
 | `cellColor`           | Optional. The board cell background color, defaults to transparent.                        |
@@ -62,23 +76,23 @@ The widget is designed to be used in portrait mode, and fills the board size to 
 | `usesJapanese`        | Optional. Whether japanese characters or english letters are displayed, defaults to true.  |
 | `showCoordIndicators` | Optional. Whether board coordinate indicators should be shown, defaults to true.           |
 | `coordIndicatorType`  | Optional. The type of coordinate indicators show, defaults to CoordIndicatorType.japanese. |
-| `showPiecesInHand`    | Optional. Whether pieces in hand should be shown, defaults to true.                        |
+
+### DefaultShogiBoardStyle
+
+The `ShogiBoardStyle` to apply to descendant `ShogiBoard` widgets without an explicit style.
+
+```dart
+DefaultShogiBoardStyle(
+  style: ShogiBoardStyle(
+    cellColor: BoardColors.brown,
+  ),
+  child: MaterialApp(
+    ...
+```
 
 ## Importing a Game Board
 
-As the game board is presently static, a board position can be notated by `{PieceType}-{Row}{Column}`, i.e. `K-59`. Note that 11 is the top left board cell as per japanese notation.
-
-```dart
-final yagura = ['L-99', 'N-89', 'K-88', 'G-78', 'P-97', 'P-87', 'S-77', 'G-67', 'P-76', 'P-66', 'P-56'];
-
-final boardPieces = ShogiUtils.stringArrayToBoardPiecesArray(yagura);
-```
-
-If sente or gote aren't specified, then sente is chosen by default. To import pieces for both players, use the notation `{Player}:{PieceType}-{Row}{Column}`.
-
-```dart
-final tsume1 = ['G:K-51', 'G:S-61', 'G:S-41', 'S:+P-53', 'S:+B-25'];
-```
+Please see [*shogi* API - Importing a Game Board ](https://pub.dev/packages/shogi#importing-a-game-board) for full information on how to import a game board. Here are two visual examples:
 
 |                    |                    |
 |:-------------------|:-------------------|
@@ -87,7 +101,7 @@ final tsume1 = ['G:K-51', 'G:S-61', 'G:S-41', 'S:+P-53', 'S:+B-25'];
 
 ## Future Plans
 
-This package grew out of my desired to visualize shogi castles in Flutter, and with no game board widget or even a shogi engine available, I decided to roll my own. The package [shogi](https://github.com/defuncart/shogi) contains the initial business logic from this package and will be simultaneously developed upon.
+This package grew out of my desired to visualize shogi castles in Flutter, and with no game board widget or even a shogi engine available, I decided to roll my own.
 
 For the future I would like to utilize this widget not just for displaying static game boards, but also for tsume problems, thus user interaction may be considered.
 
