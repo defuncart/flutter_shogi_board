@@ -6,6 +6,9 @@ import '../widgets/coord_indicator_cell.dart';
 /// A model used to paint a `ShogiBoard`.
 @immutable
 class ShogiBoardStyle {
+  /// The maximum size of the board
+  final double maxSize;
+
   /// The color of each standard piece on the board.
   final Color pieceColor;
 
@@ -28,6 +31,7 @@ class ShogiBoardStyle {
   final CoordIndicatorType coordIndicatorType;
 
   const ShogiBoardStyle({
+    this.maxSize = double.infinity,
     this.pieceColor = BoardColors.black,
     this.promotedPieceColor = BoardColors.red,
     this.cellColor = Colors.transparent,
@@ -45,6 +49,7 @@ class ShogiBoardStyle {
 
   /// Creates a copy of this `ShogiBoardStyle` but with the given fields replaced with the new values.
   ShogiBoardStyle copyWith({
+    double maxSize,
     Color pieceColor,
     Color promotedPieceColor,
     Color cellColor,
@@ -54,6 +59,7 @@ class ShogiBoardStyle {
     CoordIndicatorType coordIndicatorType,
   }) =>
       ShogiBoardStyle(
+        maxSize: maxSize ?? this.maxSize,
         pieceColor: pieceColor ?? this.pieceColor,
         promotedPieceColor: promotedPieceColor ?? this.promotedPieceColor,
         cellColor: cellColor ?? this.cellColor,
