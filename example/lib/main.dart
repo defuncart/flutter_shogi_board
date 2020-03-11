@@ -176,9 +176,9 @@ class _Proverb extends StatelessWidget {
           maxSize: 400,
           coordIndicatorType: CoordIndicatorType.arabic,
         ),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0),
-          child: SingleChildScrollView(
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
