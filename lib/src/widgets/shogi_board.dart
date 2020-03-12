@@ -202,18 +202,48 @@ class _PiecesInHand extends StatelessWidget {
       child: Container(
         height: size,
         child: Row(
-          mainAxisAlignment: isSente ? MainAxisAlignment.end : MainAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-            for (final kvp in pieces.entries)
+            if (isSente)
+              // HACK using PieceInHand to render player icon
               PieceInHand(
-                boardPiece: kvp.key,
-                count: kvp.value,
+                boardPiece: BoardConfig.sente,
+                count: 1,
                 isSente: isSente,
                 size: size,
-                pieceColor: pieceColor,
-                countColor: BoardColors.red,
+                pieceColor: BoardColors.black,
+                countColor: Colors.transparent,
               ),
-            if (isSente) Container(width: spacer)
+            Row(
+              mainAxisAlignment: isSente ? MainAxisAlignment.end : MainAxisAlignment.start,
+              children: <Widget>[
+                for (final kvp in pieces.entries)
+                  PieceInHand(
+                    boardPiece: kvp.key,
+                    count: kvp.value,
+                    isSente: isSente,
+                    size: size,
+                    pieceColor: pieceColor,
+                    countColor: BoardColors.red,
+                  ),
+                if (isSente) Container(width: spacer)
+              ],
+            ),
+            if (!isSente)
+              Row(
+                children: <Widget>[
+                  // HACK using PieceInHand to render player icon
+                  PieceInHand(
+                    boardPiece: BoardConfig.gote,
+                    count: 1,
+                    isSente: isSente,
+                    size: size,
+                    pieceColor: BoardColors.black,
+                    countColor: Colors.transparent,
+                  ),
+                  Container(width: spacer)
+                ],
+              ),
           ],
         ),
       ),
