@@ -145,6 +145,7 @@ class ShogiBoard extends StatelessWidget {
                   isSente: false,
                   size: sizeBoardCell,
                   pieceColor: style.pieceColor,
+                  spacer: style.showCoordIndicators ? sizeCoordCell : 0,
                 ),
               ...rows,
               if (showPiecesInHand)
@@ -156,6 +157,7 @@ class ShogiBoard extends StatelessWidget {
                   isSente: true,
                   size: sizeBoardCell,
                   pieceColor: style.pieceColor,
+                  spacer: style.showCoordIndicators ? sizeCoordCell : 0,
                 ),
             ],
           ),
@@ -176,6 +178,11 @@ class _PiecesInHand extends StatelessWidget {
   /// The cell's size (width, height)
   final double size;
 
+  /// A spacer to place at the right-most edge
+  ///
+  /// This is used when style.showCoordIndicators is true
+  final double spacer;
+
   /// The color of the piece
   final Color pieceColor;
 
@@ -185,34 +192,31 @@ class _PiecesInHand extends StatelessWidget {
     @required this.isSente,
     @required this.size,
     @required this.pieceColor,
+    this.spacer = 0,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return pieces.length > 0
-        ? Align(
-            alignment: isSente ? Alignment.centerRight : Alignment.centerLeft,
-            child: Container(
-              height: size,
-              child: Row(
-                mainAxisAlignment: isSente ? MainAxisAlignment.end : MainAxisAlignment.start,
-                children: <Widget>[
-                  for (final kvp in pieces.entries)
-                    PieceInHand(
-                      boardPiece: kvp.key,
-                      count: kvp.value,
-                      isSente: isSente,
-                      size: size,
-                      pieceColor: pieceColor,
-                      countColor: BoardColors.red,
-                    )
-                ],
+    return Align(
+      alignment: isSente ? Alignment.centerRight : Alignment.centerLeft,
+      child: Container(
+        height: size,
+        child: Row(
+          mainAxisAlignment: isSente ? MainAxisAlignment.end : MainAxisAlignment.start,
+          children: <Widget>[
+            for (final kvp in pieces.entries)
+              PieceInHand(
+                boardPiece: kvp.key,
+                count: kvp.value,
+                isSente: isSente,
+                size: size,
+                pieceColor: pieceColor,
+                countColor: BoardColors.red,
               ),
-            ),
-          )
-        : Container(
-            width: double.infinity,
-            height: size,
-          );
+            if (isSente) Container(width: spacer)
+          ],
+        ),
+      ),
+    );
   }
 }
