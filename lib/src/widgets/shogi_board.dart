@@ -14,6 +14,12 @@ import '../models/shogi_board_style.dart';
 
 /// Renders a shogi board using a list of board pieces
 class ShogiBoard extends StatelessWidget {
+  // A multiplier how much size a board cell should take
+  static const _boardCellMultiplier = 1.0;
+
+  // A multiplier how much size a coord cell should take. This should be <= _boardCellMultiplier.
+  static const _coordCellMultiplier = 0.6;
+
   /// The game board to render
   final GameBoard gameBoard;
 
@@ -53,31 +59,39 @@ class ShogiBoard extends StatelessWidget {
             min(constraints.maxHeight, MediaQuery.of(context).size.height),
           ),
         );
-        // determine the size per each board element
-        final size = maxSize / (numberRows + (showPiecesInHand ? 2 : 0));
+        // determine size multiplier
+        final totalMultiplier = ((numberRows + (showPiecesInHand ? 2 : 0)) * _boardCellMultiplier) +
+            (style.showCoordIndicators ? 1 : 0) * _coordCellMultiplier;
+        final sizePerMultiplierUnit = maxSize / totalMultiplier;
+        // determine the size per board cell and coord cell
+        final sizeBoardCell = sizePerMultiplierUnit * _boardCellMultiplier;
+        final sizeCoordCell = sizePerMultiplierUnit * _coordCellMultiplier;
         // determine the total width and height of the board
-        final totalWidth = size * numberColumns;
-        final totalHeight = size * (numberRows + (showPiecesInHand ? 2 : 0));
+        final totalWidth = sizeBoardCell * BoardConfig.numberColumns + (style.showCoordIndicators ? sizeCoordCell : 0);
+        final totalHeight = sizeBoardCell * BoardConfig.numberRows +
+            (style.showCoordIndicators ? sizeCoordCell : 0) +
+            sizeBoardCell * (showPiecesInHand ? 2 : 0);
 
         // determine rows of widgets
-        List<Widget> rows = List<Widget>(numberRows);
+        final rows = List<Widget>(numberRows);
         for (int y = 0; y < numberRows; y++) {
-          List<Widget> row = List<Widget>(numberColumns);
+          final row = List<Widget>(numberColumns);
           for (int x = numberColumns - 1; x >= 0; x--) {
             final boardPiece = gameBoard.boardPieces.pieceAtPosition(
               column: style.showCoordIndicators ? x : x + 1,
               row: style.showCoordIndicators ? y : y + 1,
             );
 
+            // if should show coord and top row/first column, assign CoordIndicatorCell else BoardCell
             row[numberColumns - 1 - x] = style.showCoordIndicators && (y == 0 || x == 0)
                 ? CoordIndicatorCell(
-                    size: size,
+                    size: sizeCoordCell,
                     coord: y == 0 ? x : y,
                     isTop: y == 0,
                     coordIndicatorType: style.coordIndicatorType,
                   )
                 : BoardCell(
-                    size: size,
+                    size: sizeBoardCell,
                     edge: Edge(
                       top: y == (style.showCoordIndicators ? 1 : 0),
                       bottom: y == numberRows - 1,
@@ -90,15 +104,30 @@ class ShogiBoard extends StatelessWidget {
                         ? Piece(
                             boardPiece: boardPiece.displayString(usesJapanese: style.usesJapanese),
                             isSente: boardPiece.isSente,
-                            size: size,
+                            size: sizeBoardCell,
                             pieceColor: boardPiece.isPromoted ? style.promotedPieceColor : style.pieceColor,
                           )
                         : null,
                   );
           }
-          rows[y] = Row(
-            children: row,
-          );
+
+          // if top row and should show coord indicators, then wrap in an additional row to allow correct spacing
+          rows[y] = style.showCoordIndicators && y == 0
+              ? Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Expanded(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: row.take(numberRows - 1).toList(),
+                      ),
+                    ),
+                    row.last,
+                  ],
+                )
+              : Row(
+                  children: row,
+                );
         }
 
         // construct board
@@ -114,7 +143,7 @@ class ShogiBoard extends StatelessWidget {
                       .toList()
                       .convertToMapWithCountUniqueElements(),
                   isSente: false,
-                  size: size,
+                  size: sizeBoardCell,
                   pieceColor: style.pieceColor,
                 ),
               ...rows,
@@ -125,7 +154,7 @@ class ShogiBoard extends StatelessWidget {
                       .toList()
                       .convertToMapWithCountUniqueElements(),
                   isSente: true,
-                  size: size,
+                  size: sizeBoardCell,
                   pieceColor: style.pieceColor,
                 ),
             ],
