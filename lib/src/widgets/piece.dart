@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 /// Renders a given board piece as text
 class Piece extends StatelessWidget {
-  // TODO consider moving to a config
   /// A multiplier to determine font size based on cell size
   static const _fontSizeMultiplier = 0.6;
 
