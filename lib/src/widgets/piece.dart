@@ -1,13 +1,10 @@
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 
 /// Renders a given board piece as text
 class Piece extends StatelessWidget {
-  /// The maximum font size
-  static const _maxFontSize = 60.0;
-
-  /// The minimum font size
-  static const _minFontSize = 10.0;
+  // TODO consider moving to a config
+  /// A multiplier to determine font size based on cell size
+  static const _fontSizeMultiplier = 0.6;
 
   /// The board piece as a text string
   final String boardPiece;
@@ -41,13 +38,12 @@ class Piece extends StatelessWidget {
       child: Center(
         child: RotatedBox(
           quarterTurns: isSente ? 0 : 2,
-          child: AutoSizeText(
+          child: Text(
             boardPiece,
             style: TextStyle(
               color: pieceColor,
-              fontSize: _maxFontSize,
+              fontSize: size * _fontSizeMultiplier,
             ),
-            minFontSize: _minFontSize,
           ),
         ),
       ),
