@@ -188,7 +188,7 @@ class _Proverb extends StatelessWidget {
                       'It is extremely dangerous to start fighting with the King sitting on the original square. In Diagram 1, Black has already advanced a Silver onto 4f with his King in the original position. If he wants to launch an attack from here, how would he play?'),
                   Container(height: 16),
                   _SFENBoard(
-                    sfenString: 'ln3k1nl/1r3bg2/p1ppsgspp/1p2ppp2/7P1/2PPPSP2/PPS2P2P/2G1G2R1/LNB1k2NL b -',
+                    sfenString: 'ln3k1nl/1r3bg2/p1ppsgspp/1p2ppp2/7P1/2PPPSP2/PPS2P2P/2G1G2R1/LNB1K2NL b -',
                     label: 'Diagram 1',
                     // showPiecesInHand: false,
                   ),
@@ -211,7 +211,7 @@ class _Proverb extends StatelessWidget {
                   ),
                   Container(height: 16),
                   _SFENBoard(
-                    sfenString: 'ln3k1nl/1r4g2/p1ppsg2p/1p2pppR1/9/2PPP4/PPS2P2P/2G1G4/LN2k2NL b bspBS2P',
+                    sfenString: 'ln3k1nl/1r4g2/p1ppsg2p/1p2pppR1/9/2PPP4/PPS2P2P/2G1G4/LN2K2NL b bspBS2P',
                     label: 'Diagram 2',
                     showPiecesInHand: true,
                   ),
