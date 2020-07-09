@@ -7,12 +7,28 @@ packages:
       name: collection
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.14.11"
+    version: "1.14.12"
+  effective_dart:
+    dependency: transitive
+    description:
+      name: effective_dart
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.2.3"
   flutter:
     dependency: "direct main"
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_analysis_options:
+    dependency: transitive
+    description:
+      path: "."
+      ref: HEAD
+      resolved-ref: "972b5461f4c9977286707dfa40ee098227ccd8e1"
+      url: "https://github.com/defuncart/flutter_analysis_options"
+    source: git
+    version: "0.0.1"
   flutter_shogi_board:
     dependency: "direct main"
     description:
@@ -30,9 +46,11 @@ packages:
   shogi:
     dependency: transitive
     description:
-      name: shogi
-      url: "https://pub.dartlang.org"
-    source: hosted
+      path: "."
+      ref: HEAD
+      resolved-ref: "9e3701f1f2035c6c7c6c93ce902993dc43f14aff"
+      url: "https://github.com/defuncart/shogi"
+    source: git
     version: "0.0.3"
   sky_engine:
     dependency: transitive
@@ -54,4 +72,4 @@ packages:
     source: hosted
     version: "2.0.8"
 sdks:
-  dart: ">=2.6.0 <3.0.0"
+  dart: ">=2.7.0 <3.0.0"

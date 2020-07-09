@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_shogi_board/src/widgets/piece.dart';
+
+import 'piece.dart';
 
 /// Renders a captured (i.e. in hand) piece with a given count
 class PieceInHand extends StatelessWidget {

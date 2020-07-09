@@ -3,14 +3,14 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:shogi/shogi.dart';
 
+import '../configs/board_colors.dart';
+import '../extensions/list_extensions.dart';
+import '../models/shogi_board_style.dart';
 import 'board_cell.dart';
 import 'coord_indicator_cell.dart';
 import 'default_shogi_board_style.dart';
 import 'piece.dart';
 import 'piece_in_hand.dart';
-import '../configs/board_colors.dart';
-import '../extensions/list_extensions.dart';
-import '../models/shogi_board_style.dart';
 
 /// Renders a shogi board using a list of board pieces
 class ShogiBoard extends StatelessWidget {
@@ -74,9 +74,9 @@ class ShogiBoard extends StatelessWidget {
 
         // determine rows of widgets
         final rows = List<Widget>(numberRows);
-        for (int y = 0; y < numberRows; y++) {
+        for (var y = 0; y < numberRows; y++) {
           final row = List<Widget>(numberColumns);
-          for (int x = numberColumns - 1; x >= 0; x--) {
+          for (var x = numberColumns - 1; x >= 0; x--) {
             final boardPiece = gameBoard.boardPieces.pieceAtPosition(
               column: style.showCoordIndicators ? x : x + 1,
               row: style.showCoordIndicators ? y : y + 1,

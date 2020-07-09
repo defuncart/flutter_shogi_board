@@ -1,10 +1,9 @@
 import 'dart:ui';
 
+import 'package:flutter_shogi_board/flutter_shogi_board.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:flutter_shogi_board/flutter_shogi_board.dart';
-
-main() {
+void main() {
   test('No Parameters', () {
     final style = ShogiBoardStyle();
     expect(style, isNotNull);
