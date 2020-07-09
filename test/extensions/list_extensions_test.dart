@@ -1,8 +1,7 @@
+import 'package:flutter_shogi_board/src/extensions/list_extensions.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:flutter_shogi_board/src/extensions/list_extensions.dart';
-
-main() {
+void main() {
   test('Null', () {
     List list;
     final map = list.convertToMapWithCountUniqueElements();

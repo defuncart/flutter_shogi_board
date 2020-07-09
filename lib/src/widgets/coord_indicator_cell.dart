@@ -38,8 +38,8 @@ class CoordIndicatorCell extends StatelessWidget {
     Key key,
   }) : super(key: key);
 
-  static const _arabic = const ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i'];
-  static const _japanese = const ['一', '二', '三', '四', '五', '六', '七', '八', '九'];
+  static const _arabic = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i'];
+  static const _japanese = ['一', '二', '三', '四', '五', '六', '七', '八', '九'];
 
   @override
   Widget build(BuildContext context) {
