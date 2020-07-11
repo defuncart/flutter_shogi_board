@@ -60,8 +60,8 @@ class ShogiBoard extends StatelessWidget {
           ),
         );
         // determine size multiplier
-        final totalMultiplier = ((numberRows + (showPiecesInHand ? 2 : 0)) * _boardCellMultiplier) +
-            (style.showCoordIndicators ? 1 : 0) * _coordCellMultiplier;
+        final totalMultiplier = ((BoardConfig.numberRows + (showPiecesInHand ? 2 : 0)) * _boardCellMultiplier) +
+            (style.showCoordIndicators ? _coordCellMultiplier : 0);
         final sizePerMultiplierUnit = maxSize / totalMultiplier;
         // determine the size per board cell and coord cell
         final sizeBoardCell = sizePerMultiplierUnit * _boardCellMultiplier;
@@ -89,6 +89,7 @@ class ShogiBoard extends StatelessWidget {
                     coord: y == 0 ? x : y,
                     isTop: y == 0,
                     coordIndicatorType: style.coordIndicatorType,
+                    color: style.borderColor,
                   )
                 : BoardCell(
                     size: sizeBoardCell,
@@ -197,6 +198,8 @@ class _PiecesInHand extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final playerIconColor = Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black;
+
     return Align(
       alignment: isSente ? Alignment.centerRight : Alignment.centerLeft,
       child: Container(
@@ -211,7 +214,7 @@ class _PiecesInHand extends StatelessWidget {
                 count: 1,
                 isSente: isSente,
                 size: size,
-                pieceColor: BoardColors.black,
+                pieceColor: playerIconColor,
                 countColor: Colors.transparent,
               ),
             Row(
@@ -238,7 +241,7 @@ class _PiecesInHand extends StatelessWidget {
                     count: 1,
                     isSente: isSente,
                     size: size,
-                    pieceColor: BoardColors.black,
+                    pieceColor: playerIconColor,
                     countColor: Colors.transparent,
                   ),
                   Container(width: spacer)

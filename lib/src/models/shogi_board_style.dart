@@ -68,4 +68,19 @@ class ShogiBoardStyle {
         showCoordIndicators: showCoordIndicators ?? this.showCoordIndicators,
         coordIndicatorType: coordIndicatorType ?? this.coordIndicatorType,
       );
+
+  @override
+  String toString() {
+    final properties = {
+      'maxSize': maxSize,
+      'pieceColor': pieceColor,
+      'promotedPieceColor': promotedPieceColor,
+      'cellColor': cellColor,
+      'borderColor': borderColor,
+      'usesJapanese': usesJapanese,
+      'showCoordIndicators': showCoordIndicators,
+      'coordIndicatorType': coordIndicatorType,
+    };
+    return properties.entries.where((kvp) => kvp.value != null).toList().toString();
+  }
 }
