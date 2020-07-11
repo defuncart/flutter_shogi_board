@@ -60,8 +60,8 @@ class ShogiBoard extends StatelessWidget {
           ),
         );
         // determine size multiplier
-        final totalMultiplier = ((numberRows + (showPiecesInHand ? 2 : 0)) * _boardCellMultiplier) +
-            (style.showCoordIndicators ? 1 : 0) * _coordCellMultiplier;
+        final totalMultiplier = ((BoardConfig.numberRows + (showPiecesInHand ? 2 : 0)) * _boardCellMultiplier) +
+            (style.showCoordIndicators ? _coordCellMultiplier : 0);
         final sizePerMultiplierUnit = maxSize / totalMultiplier;
         // determine the size per board cell and coord cell
         final sizeBoardCell = sizePerMultiplierUnit * _boardCellMultiplier;
