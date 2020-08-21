@@ -58,7 +58,7 @@ class _CastleBuildingAnimationState extends State<_CastleBuildingAnimation> {
   void initState() {
     super.initState();
 
-    final game = """
+    final game = '''
 1: ☗P77-76
 2: ☗S79-68
 3: ☗S68-77
@@ -72,7 +72,7 @@ class _CastleBuildingAnimationState extends State<_CastleBuildingAnimation> {
 11: ☗B79-68
 12: ☗K69-79
 13: ☗K79-88
-""";
+''';
     moves = CustomNotationConverter().movesFromFile(game);
     gameBoard = ShogiUtils.initialBoard;
 
