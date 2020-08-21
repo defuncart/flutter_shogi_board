@@ -46,8 +46,12 @@ class ShogiBoard extends StatelessWidget {
     final style = this.style ?? DefaultShogiBoardStyle.of(context).style;
 
     // determine number of columns and rows depending if coordinates should be shown
-    final numberColumns = style.showCoordIndicators ? BoardConfig.numberColumns + 1 : BoardConfig.numberColumns;
-    final numberRows = style.showCoordIndicators ? BoardConfig.numberRows + 1 : BoardConfig.numberRows;
+    final numberColumns = style.showCoordIndicators
+        ? BoardConfig.numberColumns + 1
+        : BoardConfig.numberColumns;
+    final numberRows = style.showCoordIndicators
+        ? BoardConfig.numberRows + 1
+        : BoardConfig.numberRows;
 
     return LayoutBuilder(
       builder: (_, constraints) {
@@ -60,14 +64,17 @@ class ShogiBoard extends StatelessWidget {
           ),
         );
         // determine size multiplier
-        final totalMultiplier = ((BoardConfig.numberRows + (showPiecesInHand ? 2 : 0)) * _boardCellMultiplier) +
-            (style.showCoordIndicators ? _coordCellMultiplier : 0);
+        final totalMultiplier =
+            ((BoardConfig.numberRows + (showPiecesInHand ? 2 : 0)) *
+                    _boardCellMultiplier) +
+                (style.showCoordIndicators ? _coordCellMultiplier : 0);
         final sizePerMultiplierUnit = maxSize / totalMultiplier;
         // determine the size per board cell and coord cell
         final sizeBoardCell = sizePerMultiplierUnit * _boardCellMultiplier;
         final sizeCoordCell = sizePerMultiplierUnit * _coordCellMultiplier;
         // determine the total width and height of the board
-        final totalWidth = sizeBoardCell * BoardConfig.numberColumns + (style.showCoordIndicators ? sizeCoordCell : 0);
+        final totalWidth = sizeBoardCell * BoardConfig.numberColumns +
+            (style.showCoordIndicators ? sizeCoordCell : 0);
         final totalHeight = sizeBoardCell * BoardConfig.numberRows +
             (style.showCoordIndicators ? sizeCoordCell : 0) +
             sizeBoardCell * (showPiecesInHand ? 2 : 0);
@@ -83,33 +90,37 @@ class ShogiBoard extends StatelessWidget {
             );
 
             // if should show coord and top row/first column, assign CoordIndicatorCell else BoardCell
-            row[numberColumns - 1 - x] = style.showCoordIndicators && (y == 0 || x == 0)
-                ? CoordIndicatorCell(
-                    size: sizeCoordCell,
-                    coord: y == 0 ? x : y,
-                    isTop: y == 0,
-                    coordIndicatorType: style.coordIndicatorType,
-                    color: style.borderColor,
-                  )
-                : BoardCell(
-                    size: sizeBoardCell,
-                    edge: Edge(
-                      top: y == (style.showCoordIndicators ? 1 : 0),
-                      bottom: y == numberRows - 1,
-                      left: x == numberColumns - 1,
-                      right: x == (style.showCoordIndicators ? 1 : 0),
-                    ),
-                    cellColor: style.cellColor,
-                    borderColor: style.borderColor,
-                    child: boardPiece != null
-                        ? Piece(
-                            boardPiece: boardPiece.displayString(usesJapanese: style.usesJapanese),
-                            isSente: boardPiece.isSente,
-                            size: sizeBoardCell,
-                            pieceColor: boardPiece.isPromoted ? style.promotedPieceColor : style.pieceColor,
-                          )
-                        : null,
-                  );
+            row[numberColumns - 1 - x] =
+                style.showCoordIndicators && (y == 0 || x == 0)
+                    ? CoordIndicatorCell(
+                        size: sizeCoordCell,
+                        coord: y == 0 ? x : y,
+                        isTop: y == 0,
+                        coordIndicatorType: style.coordIndicatorType,
+                        color: style.borderColor,
+                      )
+                    : BoardCell(
+                        size: sizeBoardCell,
+                        edge: Edge(
+                          top: y == (style.showCoordIndicators ? 1 : 0),
+                          bottom: y == numberRows - 1,
+                          left: x == numberColumns - 1,
+                          right: x == (style.showCoordIndicators ? 1 : 0),
+                        ),
+                        cellColor: style.cellColor,
+                        borderColor: style.borderColor,
+                        child: boardPiece != null
+                            ? Piece(
+                                boardPiece: boardPiece.displayString(
+                                    usesJapanese: style.usesJapanese),
+                                isSente: boardPiece.isSente,
+                                size: sizeBoardCell,
+                                pieceColor: boardPiece.isPromoted
+                                    ? style.promotedPieceColor
+                                    : style.pieceColor,
+                              )
+                            : null,
+                      );
           }
 
           // if top row and should show coord indicators, then wrap in an additional row to allow correct spacing
@@ -140,7 +151,8 @@ class ShogiBoard extends StatelessWidget {
               if (showPiecesInHand)
                 _PiecesInHand(
                   pieces: gameBoard.gotePiecesInHand
-                      .map((p) => p.displayString(usesJapanese: style.usesJapanese))
+                      .map((p) =>
+                          p.displayString(usesJapanese: style.usesJapanese))
                       .toList()
                       .convertToMapWithCountUniqueElements(),
                   isSente: false,
@@ -152,7 +164,8 @@ class ShogiBoard extends StatelessWidget {
               if (showPiecesInHand)
                 _PiecesInHand(
                   pieces: gameBoard.sentePiecesInHand
-                      .map((p) => p.displayString(usesJapanese: style.usesJapanese))
+                      .map((p) =>
+                          p.displayString(usesJapanese: style.usesJapanese))
                       .toList()
                       .convertToMapWithCountUniqueElements(),
                   isSente: true,
@@ -198,7 +211,9 @@ class _PiecesInHand extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final playerIconColor = Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black;
+    final playerIconColor = Theme.of(context).brightness == Brightness.dark
+        ? Colors.white
+        : Colors.black;
 
     return Align(
       alignment: isSente ? Alignment.centerRight : Alignment.centerLeft,
@@ -218,7 +233,8 @@ class _PiecesInHand extends StatelessWidget {
                 countColor: Colors.transparent,
               ),
             Row(
-              mainAxisAlignment: isSente ? MainAxisAlignment.end : MainAxisAlignment.start,
+              mainAxisAlignment:
+                  isSente ? MainAxisAlignment.end : MainAxisAlignment.start,
               children: <Widget>[
                 for (final kvp in pieces.entries)
                   PieceInHand(

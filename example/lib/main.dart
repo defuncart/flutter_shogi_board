@@ -12,7 +12,8 @@ void main() {
 
 class _HomeScreen extends StatelessWidget {
   final Map<String, Function(BuildContext)> routes = {
-    'Yagura castle building animation': (context) => _showPage(context, _CastleBuildingAnimation()),
+    'Yagura castle building animation': (context) =>
+        _showPage(context, _CastleBuildingAnimation()),
     'Tsume (5手詰)': (context) => _showPage(context, _Tsume()),
     'Proverb': (context) => _showPage(context, _Proverb()),
   };
@@ -44,7 +45,8 @@ class _CastleBuildingAnimation extends StatefulWidget {
   _CastleBuildingAnimation({Key key}) : super(key: key);
 
   @override
-  _CastleBuildingAnimationState createState() => _CastleBuildingAnimationState();
+  _CastleBuildingAnimationState createState() =>
+      _CastleBuildingAnimationState();
 }
 
 class _CastleBuildingAnimationState extends State<_CastleBuildingAnimation> {
@@ -56,7 +58,7 @@ class _CastleBuildingAnimationState extends State<_CastleBuildingAnimation> {
   void initState() {
     super.initState();
 
-    final game = """
+    final game = '''
 1: ☗P77-76
 2: ☗S79-68
 3: ☗S68-77
@@ -70,7 +72,7 @@ class _CastleBuildingAnimationState extends State<_CastleBuildingAnimation> {
 11: ☗B79-68
 12: ☗K69-79
 13: ☗K79-88
-""";
+''';
     moves = CustomNotationConverter().movesFromFile(game);
     gameBoard = ShogiUtils.initialBoard;
 
@@ -106,7 +108,8 @@ class _CastleBuildingAnimationState extends State<_CastleBuildingAnimation> {
     }
 
     setState(
-      () => gameBoard = ShogiUtils.stringArrayToGameBoard(StaticGameBoards.yagura),
+      () => gameBoard =
+          ShogiUtils.stringArrayToGameBoard(StaticGameBoards.yagura),
     );
   }
 
@@ -139,8 +142,12 @@ class _Tsume extends StatelessWidget {
         '☖:K-24',
         '☖:G-16',
       ]),
-      BoardPiece(player: PlayerType.sente, pieceType: PieceType.gold, position: null),
-      BoardPiece(player: PlayerType.sente, pieceType: PieceType.silver, position: null),
+      BoardPiece(
+          player: PlayerType.sente, pieceType: PieceType.gold, position: null),
+      BoardPiece(
+          player: PlayerType.sente,
+          pieceType: PieceType.silver,
+          position: null),
     ];
     final gameBoard = GameBoard(boardPieces: boardPieces);
 
@@ -188,7 +195,8 @@ class _Proverb extends StatelessWidget {
                       'It is extremely dangerous to start fighting with the King sitting on the original square. In Diagram 1, Black has already advanced a Silver onto 4f with his King in the original position. If he wants to launch an attack from here, how would he play?'),
                   Container(height: 16),
                   _SFENBoard(
-                    sfenString: 'ln3k1nl/1r3bg2/p1ppsgspp/1p2ppp2/7P1/2PPPSP2/PPS2P2P/2G1G2R1/LNB1K2NL b -',
+                    sfenString:
+                        'ln3k1nl/1r3bg2/p1ppsgspp/1p2ppp2/7P1/2PPPSP2/PPS2P2P/2G1G2R1/LNB1K2NL b -',
                     label: 'Diagram 1',
                     // showPiecesInHand: false,
                   ),
@@ -211,7 +219,8 @@ class _Proverb extends StatelessWidget {
                   ),
                   Container(height: 16),
                   _SFENBoard(
-                    sfenString: 'ln3k1nl/1r4g2/p1ppsg2p/1p2pppR1/9/2PPP4/PPS2P2P/2G1G4/LN2K2NL b bspBS2P',
+                    sfenString:
+                        'ln3k1nl/1r4g2/p1ppsg2p/1p2pppR1/9/2PPP4/PPS2P2P/2G1G4/LN2K2NL b bspBS2P',
                     label: 'Diagram 2',
                     showPiecesInHand: true,
                   ),
@@ -300,7 +309,10 @@ class _MovesList extends StatelessWidget {
         children: <Widget>[
           for (int i = 0; i < moves.length; i++)
             Text(
-              (i % 2 == 0 && playerFirstMove == PlayerType.sente ? BoardConfig.sente : BoardConfig.gote) + moves[i],
+              (i % 2 == 0 && playerFirstMove == PlayerType.sente
+                      ? BoardConfig.sente
+                      : BoardConfig.gote) +
+                  moves[i],
               style: TextStyle(
                 color: BoardColors.black,
               ),
