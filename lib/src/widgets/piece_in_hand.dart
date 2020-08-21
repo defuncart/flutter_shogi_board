@@ -50,7 +50,9 @@ class PieceInHand extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Stack(
-      alignment: isSente ? AlignmentDirectional.topEnd : AlignmentDirectional.bottomStart,
+      alignment: isSente
+          ? AlignmentDirectional.topEnd
+          : AlignmentDirectional.bottomStart,
       children: <Widget>[
         Piece(
           boardPiece: boardPiece,
@@ -69,7 +71,9 @@ class PieceInHand extends StatelessWidget {
                 count.toString(),
                 style: TextStyle(
                   color: countColor,
-                  fontSize: size * _countContainerSizeMultiplier * _countFontSizeMultiplier,
+                  fontSize: size *
+                      _countContainerSizeMultiplier *
+                      _countFontSizeMultiplier,
                 ),
               ),
             ),
