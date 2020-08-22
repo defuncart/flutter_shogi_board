@@ -1,6 +1,13 @@
+## [0.0.6] - 22/08/2020
+
+* Updated to use shogi 0.0.4. Raises Dart sdk version >= 2.7.
+* Updated CoordinateCell's size to be smaller than BoardCell, thus better visual appearance.
+* Adds better dark mode support, now player icon will be rendered according to theme brightness and coord indicators will match border color.
+* Aligns analysis options with pedantic.
+
 ## [0.0.5] - 11/03/2020
 
-* Updated to use shogi 0.0.3. Raises sdk version to >= 2.6.
+* Updated to use shogi 0.0.3. Raises Dart sdk version >= 2.6.
 * Added ability to render pieces in hand for each player.
 * Updated the example to demonstrate castle building, a static tsume (with pieces in hand) and a proverb. This example is now compatible with web.
 * Added `ShogiBoardStyle` and `DefaultShogiBoardStyle`.
@@ -8,7 +15,7 @@
 
 ## [0.0.4] - 10/02/2020
 
-* Fixed shogi package version to use 0.0.2.
+* Updated to use shogi 0.0.2.
 * Added ability to show coordinate indicators on the board.
 * Updated example to show the animation of building a castle.
 
