@@ -12,7 +12,11 @@ dependencies:
   flutter:
     sdk: flutter
   meta: ^1.1.6
-  shogi: 0.0.4
+  # shogi: 0.0.4
+  shogi:
+    git:
+      url: https://github.com/defuncart/shogi
+      ref: feature/add-kif-support
   pedantic: ^1.9.0
 
 dev_dependencies:

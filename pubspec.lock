@@ -91,9 +91,11 @@ packages:
   shogi:
     dependency: "direct main"
     description:
-      name: shogi
-      url: "https://pub.dartlang.org"
-    source: hosted
+      path: "."
+      ref: "feature/add-kif-support"
+      resolved-ref: "0f8471c26e649287085d6758a05621b8ff17263c"
+      url: "https://github.com/defuncart/shogi"
+    source: git
     version: "0.0.4"
   sky_engine:
     dependency: transitive
