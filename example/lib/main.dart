@@ -123,6 +123,9 @@ class _CastleBuildingAnimationState extends State<_CastleBuildingAnimation> {
           child: ShogiBoard(
             gameBoard: gameBoard,
             showPiecesInHand: false,
+            style: ShogiBoardStyle(
+              coordIndicatorType: CoordIndicatorType.number,
+            ),
           ),
         ),
       ),
