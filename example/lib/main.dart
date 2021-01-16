@@ -228,15 +228,14 @@ class _KIFViewerState extends State<_KIFViewer> {
 4 同　銀(31)
 5 １五角打''',
               ),
+              SizedBox(height: 16),
               Expanded(
                 child: ShogiBoard(
                   gameBoard: _gameBoard,
                   showPiecesInHand: false,
                 ),
               ),
-              SizedBox(
-                height: 16,
-              ),
+              SizedBox(height: 16),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
