@@ -16,6 +16,7 @@ class _HomeScreen extends StatelessWidget {
         _showPage(context, _CastleBuildingAnimation()),
     'Tsume (5手詰)': (context) => _showPage(context, _Tsume()),
     'Proverb': (context) => _showPage(context, _Proverb()),
+    'KIF Viewer': (context) => _showPage(context, _KIFViewer()),
   };
 
   static void _showPage(BuildContext context, Widget page) =>
@@ -181,7 +182,7 @@ class _Proverb extends StatelessWidget {
       body: SafeArea(
         child: DefaultShogiBoardStyle(
           style: ShogiBoardStyle(
-            // maxSize: 400,
+            maxSize: 500,
             coordIndicatorType: CoordIndicatorType.arabic,
           ),
           child: SingleChildScrollView(
@@ -318,6 +319,111 @@ class _MovesList extends StatelessWidget {
               ),
             ),
         ],
+      ),
+    );
+  }
+}
+
+class _KIFViewer extends StatefulWidget {
+  _KIFViewer({Key key}) : super(key: key);
+
+  @override
+  _KIFViewerState createState() => _KIFViewerState();
+}
+
+class _KIFViewerState extends State<_KIFViewer> {
+  List<GameBoard> _game;
+  int _currentIndex = 0;
+
+  GameBoard get _gameBoard => _game[_currentIndex];
+  bool get _canSkipStart => _currentIndex != 0;
+  bool get _canRewind => _currentIndex > 0;
+  bool get _canFastForward => _currentIndex < _game.length - 1;
+  bool get _canSkipEnd => _currentIndex != _game.length - 1;
+
+  @override
+  void initState() {
+    super.initState();
+
+    final game = '''
+手合割：平手
+先手：
+後手：
+
+手数----指手----消費時間--
+   1 ７六歩(77)
+   2 ３四歩(33)
+   3 ２二角成(88)
+   4 同　銀(31)
+   5 １五角打
+''';
+    final moves = KIFNotationConverter().movesFromFile(game);
+    _game = [ShogiUtils.initialBoard];
+    for (final move in moves) {
+      _game.add(
+        GameEngine.makeMove(_game.last, move),
+      );
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(),
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Center(
+          child: Column(
+            children: [
+              Text(
+                '''
+1 ７六歩(77)
+2 ３四歩(33)
+3 ２二角成(88)
+4 同　銀(31)
+5 １五角打''',
+              ),
+              Expanded(
+                child: ShogiBoard(
+                  gameBoard: _gameBoard,
+                  showPiecesInHand: false,
+                ),
+              ),
+              SizedBox(
+                height: 16,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  IconButton(
+                    icon: Icon(Icons.skip_previous),
+                    onPressed: _canSkipStart
+                        ? () => setState(() => _currentIndex = 0)
+                        : null,
+                  ),
+                  IconButton(
+                    icon: Icon(Icons.fast_rewind),
+                    onPressed: _canRewind
+                        ? () => setState(() => _currentIndex--)
+                        : null,
+                  ),
+                  IconButton(
+                    icon: Icon(Icons.fast_forward),
+                    onPressed: _canFastForward
+                        ? () => setState(() => _currentIndex++)
+                        : null,
+                  ),
+                  IconButton(
+                    icon: Icon(Icons.skip_next),
+                    onPressed: _canSkipEnd
+                        ? () => setState(() => _currentIndex = _game.length - 1)
+                        : null,
+                  ),
+                ],
+              )
+            ],
+          ),
+        ),
       ),
     );
   }
