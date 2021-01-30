@@ -62,7 +62,7 @@ class PieceInHand extends StatelessWidget {
         ),
         if (count > 1)
           Container(
-            width: size * _countContainerSizeMultiplier,
+            width: size * _countContainerSizeMultiplier * (count > 9 ? 2 : 1),
             height: size * _countContainerSizeMultiplier,
             alignment: isSente ? Alignment.topRight : Alignment.bottomLeft,
             child: RotatedBox(
