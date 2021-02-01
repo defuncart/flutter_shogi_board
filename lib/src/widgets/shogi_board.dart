@@ -275,13 +275,14 @@ extension GameBoardExtension on GameBoard {
       _orderedPiecesInHand(sentePiecesInHand);
 
   List<BoardPiece> get goteOrderedPiecesInHand =>
-      _orderedPiecesInHand(gotePiecesInHand);
+      _orderedPiecesInHand(gotePiecesInHand, sortOrder: -1);
 
-  List<BoardPiece> _orderedPiecesInHand(List<BoardPiece> pieces) {
+  List<BoardPiece> _orderedPiecesInHand(List<BoardPiece> pieces,
+      {int sortOrder = 1}) {
     final orderedPieces = List<BoardPiece>.from(pieces);
     orderedPieces.sort(
         (a, b) => (ShogiUtils.piecesInHandOrder.indexOf(a.pieceType)).compareTo(
-              ShogiUtils.piecesInHandOrder.indexOf(b.pieceType),
+              ShogiUtils.piecesInHandOrder.indexOf(b.pieceType) * sortOrder,
             ));
 
     return orderedPieces;
