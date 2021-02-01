@@ -150,7 +150,7 @@ class ShogiBoard extends StatelessWidget {
             children: <Widget>[
               if (showPiecesInHand)
                 _PiecesInHand(
-                  pieces: gameBoard.gotePiecesInHand
+                  pieces: gameBoard.goteOrderedPiecesInHand
                       .map((p) =>
                           p.displayString(usesJapanese: style.usesJapanese))
                       .toList()
@@ -163,7 +163,7 @@ class ShogiBoard extends StatelessWidget {
               ...rows,
               if (showPiecesInHand)
                 _PiecesInHand(
-                  pieces: gameBoard.sentePiecesInHand
+                  pieces: gameBoard.senteOrderedPiecesInHand
                       .map((p) =>
                           p.displayString(usesJapanese: style.usesJapanese))
                       .toList()
@@ -267,5 +267,23 @@ class _PiecesInHand extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+extension GameBoardExtension on GameBoard {
+  List<BoardPiece> get senteOrderedPiecesInHand =>
+      _orderedPiecesInHand(sentePiecesInHand);
+
+  List<BoardPiece> get goteOrderedPiecesInHand =>
+      _orderedPiecesInHand(gotePiecesInHand);
+
+  List<BoardPiece> _orderedPiecesInHand(List<BoardPiece> pieces) {
+    final orderedPieces = List<BoardPiece>.from(pieces);
+    orderedPieces.sort(
+        (a, b) => (ShogiUtils.piecesInHandOrder.indexOf(a.pieceType)).compareTo(
+              ShogiUtils.piecesInHandOrder.indexOf(b.pieceType),
+            ));
+
+    return orderedPieces;
   }
 }
