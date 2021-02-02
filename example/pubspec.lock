@@ -44,9 +44,11 @@ packages:
   shogi:
     dependency: transitive
     description:
-      name: shogi
-      url: "https://pub.dartlang.org"
-    source: hosted
+      path: "."
+      ref: HEAD
+      resolved-ref: "38eeb220d93e0bbdd886114f5a28509da9463c84"
+      url: "https://github.com/defuncart/shogi"
+    source: git
     version: "0.0.4"
   sky_engine:
     dependency: transitive

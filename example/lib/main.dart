@@ -108,8 +108,8 @@ class _CastleBuildingAnimationState extends State<_CastleBuildingAnimation> {
     }
 
     setState(
-      () => gameBoard =
-          ShogiUtils.stringArrayToGameBoard(StaticGameBoards.yagura),
+      () => gameBoard = ShogiUtils.sfenStringToGameBoard(
+          '9/9/9/9/9/2PPP4/PPSG5/1KGB5/LN7 b -'),
     );
   }
 
@@ -135,21 +135,8 @@ class _Tsume extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final boardPieces = [
-      ...ShogiUtils.stringArrayToBoardPiecesArray([
-        '☗:S-14',
-        '☗:+R-53',
-        '☖:K-24',
-        '☖:G-16',
-      ]),
-      BoardPiece(
-          player: PlayerType.sente, pieceType: PieceType.gold, position: null),
-      BoardPiece(
-          player: PlayerType.sente,
-          pieceType: PieceType.silver,
-          position: null),
-    ];
-    final gameBoard = GameBoard(boardPieces: boardPieces);
+    final gameBoard = ShogiUtils.sfenStringToGameBoard(
+        '9/9/4+R4/7kS/9/8g/9/9/9 b GSr2b2g2s4n4l18p');
 
     return Scaffold(
       appBar: AppBar(),
