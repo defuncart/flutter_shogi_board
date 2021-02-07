@@ -159,7 +159,8 @@ class ShogiBoard extends StatelessWidget {
                   isSente: false,
                   size: sizeBoardCell,
                   pieceColor: style.pieceColor,
-                  spacer: style.showCoordIndicators ? sizeCoordCell : 0,
+                  rightEdgeSpacer:
+                      style.showCoordIndicators ? sizeCoordCell : 0,
                 ),
               ...rows,
               if (showPiecesInHand)
@@ -172,7 +173,8 @@ class ShogiBoard extends StatelessWidget {
                   isSente: true,
                   size: sizeBoardCell,
                   pieceColor: style.pieceColor,
-                  spacer: style.showCoordIndicators ? sizeCoordCell : 0,
+                  rightEdgeSpacer:
+                      style.showCoordIndicators ? sizeCoordCell : 0,
                 ),
             ],
           ),
@@ -199,7 +201,7 @@ class _PiecesInHand extends StatelessWidget {
   /// A spacer to place at the right-most edge
   ///
   /// This is used when style.showCoordIndicators is true
-  final double spacer;
+  final double rightEdgeSpacer;
 
   /// The color of the piece
   final Color pieceColor;
@@ -210,7 +212,7 @@ class _PiecesInHand extends StatelessWidget {
     @required this.isSente,
     @required this.size,
     @required this.pieceColor,
-    this.spacer = 0,
+    this.rightEdgeSpacer = 0,
   })  : assert(isSente != null),
         assert(size != null),
         assert(pieceColor != null),
@@ -232,10 +234,13 @@ class _PiecesInHand extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
             if (isSente)
-              PlayerIcon(
-                isSente: isSente,
-                size: pieceInHandSize,
-                color: playerIconColor,
+              Padding(
+                padding: EdgeInsets.only(left: pieceInHandSpacer),
+                child: PlayerIcon(
+                  isSente: isSente,
+                  size: pieceInHandSize,
+                  color: playerIconColor,
+                ),
               ),
             Row(
               mainAxisAlignment:
@@ -254,18 +259,21 @@ class _PiecesInHand extends StatelessWidget {
                       countColor: BoardColors.red,
                     ),
                   ),
-                if (isSente) SizedBox(width: spacer)
+                if (isSente) SizedBox(width: rightEdgeSpacer)
               ],
             ),
             if (!isSente)
               Row(
                 children: <Widget>[
-                  PlayerIcon(
-                    isSente: isSente,
-                    size: pieceInHandSize,
-                    color: playerIconColor,
+                  Padding(
+                    padding: EdgeInsets.only(right: pieceInHandSpacer),
+                    child: PlayerIcon(
+                      isSente: isSente,
+                      size: pieceInHandSize,
+                      color: playerIconColor,
+                    ),
                   ),
-                  SizedBox(width: spacer)
+                  SizedBox(width: rightEdgeSpacer)
                 ],
               ),
           ],
