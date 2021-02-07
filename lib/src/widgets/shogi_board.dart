@@ -11,6 +11,7 @@ import 'coord_indicator_cell.dart';
 import 'default_shogi_board_style.dart';
 import 'piece.dart';
 import 'piece_in_hand.dart';
+import 'player_icon.dart';
 
 /// Renders a shogi board using a list of board pieces
 class ShogiBoard extends StatelessWidget {
@@ -223,14 +224,10 @@ class _PiecesInHand extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
             if (isSente)
-              // HACK using PieceInHand to render player icon
-              PieceInHand(
-                boardPiece: BoardConfig.sente,
-                count: 1,
+              PlayerIcon(
                 isSente: isSente,
                 size: size,
-                pieceColor: playerIconColor,
-                countColor: Colors.transparent,
+                color: playerIconColor,
               ),
             Row(
               mainAxisAlignment:
@@ -251,14 +248,10 @@ class _PiecesInHand extends StatelessWidget {
             if (!isSente)
               Row(
                 children: <Widget>[
-                  // HACK using PieceInHand to render player icon
-                  PieceInHand(
-                    boardPiece: BoardConfig.gote,
-                    count: 1,
+                  PlayerIcon(
                     isSente: isSente,
                     size: size,
-                    pieceColor: playerIconColor,
-                    countColor: Colors.transparent,
+                    color: playerIconColor,
                   ),
                   Container(width: spacer)
                 ],
