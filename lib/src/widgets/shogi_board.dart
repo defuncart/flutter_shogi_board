@@ -184,6 +184,9 @@ class ShogiBoard extends StatelessWidget {
 
 /// Renders a row of pieces in hand
 class _PiecesInHand extends StatelessWidget {
+  /// A multiplier to render the text smaller than for a normal piece
+  static const _sizeMultiplier = 0.8;
+
   /// A map of pieces and their count
   final Map<String, int> pieces;
 
@@ -208,13 +211,18 @@ class _PiecesInHand extends StatelessWidget {
     @required this.size,
     @required this.pieceColor,
     this.spacer = 0,
-  }) : super(key: key);
+  })  : assert(isSente != null),
+        assert(size != null),
+        assert(pieceColor != null),
+        super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final playerIconColor = Theme.of(context).brightness == Brightness.dark
         ? Colors.white
         : Colors.black;
+    final pieceInHandSize = size * _sizeMultiplier;
+    final pieceInHandSpacer = size * (1 - _sizeMultiplier) * 0.5;
 
     return Align(
       alignment: isSente ? Alignment.centerRight : Alignment.centerLeft,
@@ -226,7 +234,7 @@ class _PiecesInHand extends StatelessWidget {
             if (isSente)
               PlayerIcon(
                 isSente: isSente,
-                size: size,
+                size: pieceInHandSize,
                 color: playerIconColor,
               ),
             Row(
@@ -234,15 +242,19 @@ class _PiecesInHand extends StatelessWidget {
                   isSente ? MainAxisAlignment.end : MainAxisAlignment.start,
               children: <Widget>[
                 for (final kvp in pieces.entries)
-                  PieceInHand(
-                    boardPiece: kvp.key,
-                    count: kvp.value,
-                    isSente: isSente,
-                    size: size,
-                    pieceColor: pieceColor,
-                    countColor: BoardColors.red,
+                  Padding(
+                    padding:
+                        EdgeInsets.symmetric(horizontal: pieceInHandSpacer),
+                    child: PieceInHand(
+                      boardPiece: kvp.key,
+                      count: kvp.value,
+                      isSente: isSente,
+                      size: pieceInHandSize,
+                      pieceColor: pieceColor,
+                      countColor: BoardColors.red,
+                    ),
                   ),
-                if (isSente) Container(width: spacer)
+                if (isSente) SizedBox(width: spacer)
               ],
             ),
             if (!isSente)
@@ -250,10 +262,10 @@ class _PiecesInHand extends StatelessWidget {
                 children: <Widget>[
                   PlayerIcon(
                     isSente: isSente,
-                    size: size,
+                    size: pieceInHandSize,
                     color: playerIconColor,
                   ),
-                  Container(width: spacer)
+                  SizedBox(width: spacer)
                 ],
               ),
           ],
