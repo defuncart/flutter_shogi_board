@@ -4,11 +4,8 @@ import 'piece.dart';
 
 /// Renders a captured (i.e. in hand) piece with a given count
 class PieceInHand extends StatelessWidget {
-  /// A multiplier to render the text smaller than for a normal piece
-  static const _sizeMultiplier = 0.8;
-
   /// A multiplier for the count container size
-  static const _countContainerSizeMultiplier = 0.35;
+  static const _countContainerSizeMultiplier = 0.5;
 
   /// A multiplier for the count font size
   static const _countFontSizeMultiplier = 0.9;
@@ -57,7 +54,7 @@ class PieceInHand extends StatelessWidget {
         Piece(
           boardPiece: boardPiece,
           isSente: isSente,
-          size: size * _sizeMultiplier,
+          size: size,
           pieceColor: pieceColor,
         ),
         if (count > 1)
@@ -74,6 +71,7 @@ class PieceInHand extends StatelessWidget {
                   fontSize: size *
                       _countContainerSizeMultiplier *
                       _countFontSizeMultiplier,
+                  height: 1 / _countFontSizeMultiplier,
                 ),
               ),
             ),
