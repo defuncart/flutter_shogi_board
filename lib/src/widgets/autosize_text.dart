@@ -44,16 +44,15 @@ class AutosizeText extends StatelessWidget {
     return Container(
       width: size,
       height: size,
-      child: Center(
-        child: RotatedBox(
-          quarterTurns: textDirection == TextDirection.downwards ? 2 : 0,
-          child: Text(
-            text,
-            style: TextStyle(
-              color: color,
-              fontSize: size * fontSizeMultiplier,
-              height: 1 / fontSizeMultiplier,
-            ),
+      alignment: Alignment.center,
+      child: RotatedBox(
+        quarterTurns: textDirection == TextDirection.downwards ? 2 : 0,
+        child: Text(
+          text,
+          style: TextStyle(
+            color: color,
+            fontSize: size * fontSizeMultiplier,
+            height: 1 / fontSizeMultiplier,
           ),
         ),
       ),
