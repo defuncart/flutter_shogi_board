@@ -5,10 +5,10 @@ import 'piece.dart';
 /// Renders a captured (i.e. in hand) piece with a given count
 class PieceInHand extends StatelessWidget {
   /// A multiplier to render the text smaller than for a normal piece
-  static const _sizeMultiplier = 0.8;
+  static const _pieceSizeMultiplier = 0.8;
 
   /// A multiplier for the count container size
-  static const _countContainerSizeMultiplier = 0.35;
+  static const _countContainerSizeMultiplier = 0.5;
 
   /// A multiplier for the count font size
   static const _countFontSizeMultiplier = 0.9;
@@ -49,36 +49,54 @@ class PieceInHand extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      alignment: isSente
-          ? AlignmentDirectional.topEnd
-          : AlignmentDirectional.bottomStart,
-      children: <Widget>[
-        Piece(
-          boardPiece: boardPiece,
-          isSente: isSente,
-          size: size * _sizeMultiplier,
-          pieceColor: pieceColor,
-        ),
-        if (count > 1)
-          Container(
-            width: size * _countContainerSizeMultiplier * (count > 9 ? 2 : 1),
-            height: size * _countContainerSizeMultiplier,
-            alignment: isSente ? Alignment.topRight : Alignment.bottomLeft,
-            child: RotatedBox(
-              quarterTurns: isSente ? 0 : 2,
-              child: Text(
-                count.toString(),
-                style: TextStyle(
-                  color: countColor,
-                  fontSize: size *
-                      _countContainerSizeMultiplier *
-                      _countFontSizeMultiplier,
+    final countContainerSize = size * _countContainerSizeMultiplier;
+    final countFontSizeMultiplier = count > 9 ? 0.85 : 1;
+    final countContainerHorizontalOffset = 0.0;
+    final countContainerVerticalOffset = countContainerSize * 0.15;
+
+    return Container(
+      width: size,
+      height: size,
+      child: Stack(
+        children: <Widget>[
+          Align(
+            alignment: isSente ? Alignment.topCenter : Alignment.bottomCenter,
+            child: Piece(
+              boardPiece: boardPiece,
+              isSente: isSente,
+              size: size * _pieceSizeMultiplier,
+              pieceColor: pieceColor,
+            ),
+          ),
+          if (count > 1)
+            Positioned(
+              left: isSente ? null : countContainerHorizontalOffset,
+              right: isSente ? countContainerHorizontalOffset : null,
+              top: isSente ? null : countContainerVerticalOffset,
+              bottom: isSente ? countContainerVerticalOffset : null,
+              child: Container(
+                width: countContainerSize,
+                height: countContainerSize,
+                alignment: Alignment.center,
+                child: RotatedBox(
+                  quarterTurns: isSente ? 0 : 2,
+                  child: Text(
+                    count.toString(),
+                    style: TextStyle(
+                      color: countColor,
+                      fontSize: size *
+                          _pieceSizeMultiplier *
+                          _countContainerSizeMultiplier *
+                          _countFontSizeMultiplier *
+                          countFontSizeMultiplier,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                 ),
               ),
             ),
-          ),
-      ],
+        ],
+      ),
     );
   }
 }

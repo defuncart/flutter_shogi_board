@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 
+import 'autosize_text.dart';
+
 /// Renders a given board piece as text
 class Piece extends StatelessWidget {
   /// A multiplier to determine font size based on cell size
-  static const _fontSizeMultiplier = 0.6;
+  static const _fontSizeMultiplier = 0.75;
 
   /// The board piece as a text string
   final String boardPiece;
@@ -31,21 +33,12 @@ class Piece extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: size,
-      height: size,
-      child: Center(
-        child: RotatedBox(
-          quarterTurns: isSente ? 0 : 2,
-          child: Text(
-            boardPiece,
-            style: TextStyle(
-              color: pieceColor,
-              fontSize: size * _fontSizeMultiplier,
-            ),
-          ),
-        ),
-      ),
+    return AutosizeText(
+      boardPiece,
+      textDirection: isSente ? TextDirection.upwards : TextDirection.downwards,
+      size: size,
+      fontSizeMultiplier: _fontSizeMultiplier,
+      color: pieceColor,
     );
   }
 }

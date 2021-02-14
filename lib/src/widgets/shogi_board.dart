@@ -11,6 +11,7 @@ import 'coord_indicator_cell.dart';
 import 'default_shogi_board_style.dart';
 import 'piece.dart';
 import 'piece_in_hand.dart';
+import 'player_icon.dart';
 
 /// Renders a shogi board using a list of board pieces
 class ShogiBoard extends StatelessWidget {
@@ -158,7 +159,8 @@ class ShogiBoard extends StatelessWidget {
                   isSente: false,
                   size: sizeBoardCell,
                   pieceColor: style.pieceColor,
-                  spacer: style.showCoordIndicators ? sizeCoordCell : 0,
+                  rightEdgeSpacer:
+                      style.showCoordIndicators ? sizeCoordCell : 0,
                 ),
               ...rows,
               if (showPiecesInHand)
@@ -171,7 +173,8 @@ class ShogiBoard extends StatelessWidget {
                   isSente: true,
                   size: sizeBoardCell,
                   pieceColor: style.pieceColor,
-                  spacer: style.showCoordIndicators ? sizeCoordCell : 0,
+                  rightEdgeSpacer:
+                      style.showCoordIndicators ? sizeCoordCell : 0,
                 ),
             ],
           ),
@@ -183,6 +186,9 @@ class ShogiBoard extends StatelessWidget {
 
 /// Renders a row of pieces in hand
 class _PiecesInHand extends StatelessWidget {
+  /// A multiplier to render the text smaller than for a normal piece
+  static const _sizeMultiplier = 0.8;
+
   /// A map of pieces and their count
   final Map<String, int> pieces;
 
@@ -195,7 +201,7 @@ class _PiecesInHand extends StatelessWidget {
   /// A spacer to place at the right-most edge
   ///
   /// This is used when style.showCoordIndicators is true
-  final double spacer;
+  final double rightEdgeSpacer;
 
   /// The color of the piece
   final Color pieceColor;
@@ -206,65 +212,60 @@ class _PiecesInHand extends StatelessWidget {
     @required this.isSente,
     @required this.size,
     @required this.pieceColor,
-    this.spacer = 0,
-  }) : super(key: key);
+    this.rightEdgeSpacer = 0,
+  })  : assert(isSente != null),
+        assert(size != null),
+        assert(pieceColor != null),
+        super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final playerIconColor = Theme.of(context).brightness == Brightness.dark
         ? Colors.white
         : Colors.black;
+    final playerIconSize = size * _sizeMultiplier;
 
-    return Align(
-      alignment: isSente ? Alignment.centerRight : Alignment.centerLeft,
-      child: Container(
-        height: size,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-            if (isSente)
-              // HACK using PieceInHand to render player icon
-              PieceInHand(
-                boardPiece: BoardConfig.sente,
-                count: 1,
-                isSente: isSente,
-                size: size,
-                pieceColor: playerIconColor,
-                countColor: Colors.transparent,
-              ),
+    return Container(
+      height: size,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment:
+            isSente ? CrossAxisAlignment.start : CrossAxisAlignment.end,
+        children: <Widget>[
+          if (isSente)
+            PlayerIcon(
+              isSente: isSente,
+              size: playerIconSize,
+              color: playerIconColor,
+            ),
+          Row(
+            mainAxisAlignment:
+                isSente ? MainAxisAlignment.end : MainAxisAlignment.start,
+            children: <Widget>[
+              for (final kvp in pieces.entries)
+                PieceInHand(
+                  boardPiece: kvp.key,
+                  count: kvp.value,
+                  isSente: isSente,
+                  size: size,
+                  pieceColor: pieceColor,
+                  countColor: BoardColors.red,
+                ),
+              if (isSente) SizedBox(width: rightEdgeSpacer)
+            ],
+          ),
+          if (!isSente)
             Row(
-              mainAxisAlignment:
-                  isSente ? MainAxisAlignment.end : MainAxisAlignment.start,
               children: <Widget>[
-                for (final kvp in pieces.entries)
-                  PieceInHand(
-                    boardPiece: kvp.key,
-                    count: kvp.value,
-                    isSente: isSente,
-                    size: size,
-                    pieceColor: pieceColor,
-                    countColor: BoardColors.red,
-                  ),
-                if (isSente) Container(width: spacer)
+                PlayerIcon(
+                  isSente: isSente,
+                  size: playerIconSize,
+                  color: playerIconColor,
+                ),
+                SizedBox(width: rightEdgeSpacer)
               ],
             ),
-            if (!isSente)
-              Row(
-                children: <Widget>[
-                  // HACK using PieceInHand to render player icon
-                  PieceInHand(
-                    boardPiece: BoardConfig.gote,
-                    count: 1,
-                    isSente: isSente,
-                    size: size,
-                    pieceColor: playerIconColor,
-                    countColor: Colors.transparent,
-                  ),
-                  Container(width: spacer)
-                ],
-              ),
-          ],
-        ),
+        ],
       ),
     );
   }
