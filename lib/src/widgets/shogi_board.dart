@@ -223,61 +223,49 @@ class _PiecesInHand extends StatelessWidget {
     final playerIconColor = Theme.of(context).brightness == Brightness.dark
         ? Colors.white
         : Colors.black;
-    final pieceInHandSize = size * _sizeMultiplier;
-    final pieceInHandSpacer = size * (1 - _sizeMultiplier) * 0.5;
+    final playerIconSize = size * _sizeMultiplier;
 
-    return Align(
-      alignment: isSente ? Alignment.centerRight : Alignment.centerLeft,
-      child: Container(
-        height: size,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-            if (isSente)
-              Padding(
-                padding: EdgeInsets.only(left: pieceInHandSpacer),
-                child: PlayerIcon(
+    return Container(
+      height: size,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment:
+            isSente ? CrossAxisAlignment.start : CrossAxisAlignment.end,
+        children: <Widget>[
+          if (isSente)
+            PlayerIcon(
+              isSente: isSente,
+              size: playerIconSize,
+              color: playerIconColor,
+            ),
+          Row(
+            mainAxisAlignment:
+                isSente ? MainAxisAlignment.end : MainAxisAlignment.start,
+            children: <Widget>[
+              for (final kvp in pieces.entries)
+                PieceInHand(
+                  boardPiece: kvp.key,
+                  count: kvp.value,
                   isSente: isSente,
-                  size: pieceInHandSize,
+                  size: size,
+                  pieceColor: pieceColor,
+                  countColor: BoardColors.red,
+                ),
+              if (isSente) SizedBox(width: rightEdgeSpacer)
+            ],
+          ),
+          if (!isSente)
+            Row(
+              children: <Widget>[
+                PlayerIcon(
+                  isSente: isSente,
+                  size: playerIconSize,
                   color: playerIconColor,
                 ),
-              ),
-            Row(
-              mainAxisAlignment:
-                  isSente ? MainAxisAlignment.end : MainAxisAlignment.start,
-              children: <Widget>[
-                for (final kvp in pieces.entries)
-                  Padding(
-                    padding:
-                        EdgeInsets.symmetric(horizontal: pieceInHandSpacer),
-                    child: PieceInHand(
-                      boardPiece: kvp.key,
-                      count: kvp.value,
-                      isSente: isSente,
-                      size: pieceInHandSize,
-                      pieceColor: pieceColor,
-                      countColor: BoardColors.red,
-                    ),
-                  ),
-                if (isSente) SizedBox(width: rightEdgeSpacer)
+                SizedBox(width: rightEdgeSpacer)
               ],
             ),
-            if (!isSente)
-              Row(
-                children: <Widget>[
-                  Padding(
-                    padding: EdgeInsets.only(right: pieceInHandSpacer),
-                    child: PlayerIcon(
-                      isSente: isSente,
-                      size: pieceInHandSize,
-                      color: playerIconColor,
-                    ),
-                  ),
-                  SizedBox(width: rightEdgeSpacer)
-                ],
-              ),
-          ],
-        ),
+        ],
       ),
     );
   }
