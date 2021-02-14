@@ -4,7 +4,7 @@ A shogi board widget for Flutter. This widget can be used in conjunction with [*
 
 ![](docs/screenshots/01.png)
 
-Presently the package is very basic in which it can determine the static board position for a given game and move pieces from one position to another. As it is still highly experimental, 0.0.x versioning is used. *shogi* is also in active development and similarly versioned.
+As this package is still highly experimental, 0.0.x versioning is used. *shogi* is also in active development and similarly versioned.
 
 ## Getting Started
 
@@ -92,6 +92,12 @@ DefaultShogiBoardStyle(
 |:-------------------|:-------------------|
 | ![](docs/screenshots/02.png) | ![](docs/screenshots/03.png) |
 
+## Showcase
+
+| Name                                                          | Description                                               |
+| ------------------------------------------------------------- | --------------------------------------------------------- |
+| [shogi_proverbs](https://github.com/defuncart/shogi_proverbs) | A mobile application containing various Shogi proverbs.   |
+| [kifu_viewer](https://github.com/defuncart/kifu_viewer)       | An application to view Shogi games by loading Kifu files. |
 
 ## Future Plans
 
