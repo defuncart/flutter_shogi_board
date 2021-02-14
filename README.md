@@ -2,9 +2,7 @@
 
 A shogi board widget for Flutter. This widget can be used in conjunction with [*shogi*](https://pub.dev/packages/shogi) to render static game board positions, tsume problems or shogi castles.
 
-![](images/01.png)
-
-Shogi (将棋) is a two-player strategy board game native to Japan, belonging to the same family as chess and xiangqi.
+![](docs/screenshots/01.png)
 
 Presently the package is very basic in which it can determine the static board position for a given game and move pieces from one position to another. As it is still highly experimental, 0.0.x versioning is used. *shogi* is also in active development and similarly versioned.
 
@@ -90,13 +88,9 @@ DefaultShogiBoardStyle(
     ...
 ```
 
-## Importing a Game Board
-
-Please see [*shogi* API - Importing a Game Board ](https://pub.dev/packages/shogi#importing-a-game-board) for full information on how to import a game board. Here are two visual examples:
-
 |                    |                    |
 |:-------------------|:-------------------|
-| ![](images/02.png) | ![](images/03.png) |
+| ![](docs/screenshots/02.png) | ![](docs/screenshots/03.png) |
 
 
 ## Future Plans
