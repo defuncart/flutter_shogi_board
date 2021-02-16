@@ -2,9 +2,12 @@
 
 A shogi board widget for Flutter. This widget can be used in conjunction with [*shogi*](https://pub.dev/packages/shogi) to render static game board positions, tsume problems or shogi castles.
 
-|                              |                              |
-|:-----------------------------|:-----------------------------|
-| ![](docs/screenshots/01.png) | ![](docs/screenshots/02.png) |
+<table>
+  <tr>
+    <td><img src="docs/screenshots/01.png" /></td>
+    <td><img src="docs/screenshots/02.png" /></td>
+  </tr>
+</table>
 
 As this package is still highly experimental, 0.0.x versioning is used. *shogi* is also in active development and similarly versioned.
 
