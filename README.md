@@ -2,11 +2,14 @@
 
 A shogi board widget for Flutter. This widget can be used in conjunction with [*shogi*](https://pub.dev/packages/shogi) to render static game board positions, tsume problems or shogi castles.
 
-![](images/01.png)
+<table>
+  <tr>
+    <td><img src="docs/screenshots/01.png" /></td>
+    <td><img src="docs/screenshots/02.png" /></td>
+  </tr>
+</table>
 
-Shogi (将棋) is a two-player strategy board game native to Japan, belonging to the same family as chess and xiangqi.
-
-Presently the package is very basic in which it can determine the static board position for a given game and move pieces from one position to another. As it is still highly experimental, 0.0.x versioning is used. *shogi* is also in active development and similarly versioned.
+As this package is still highly experimental, 0.0.x versioning is used. *shogi* is also in active development and similarly versioned.
 
 ## Getting Started
 
@@ -90,14 +93,12 @@ DefaultShogiBoardStyle(
     ...
 ```
 
-## Importing a Game Board
+## Showcase
 
-Please see [*shogi* API - Importing a Game Board ](https://pub.dev/packages/shogi#importing-a-game-board) for full information on how to import a game board. Here are two visual examples:
-
-|                    |                    |
-|:-------------------|:-------------------|
-| ![](images/02.png) | ![](images/03.png) |
-
+| Name                                                          | Description                                               |
+| ------------------------------------------------------------- | --------------------------------------------------------- |
+| [shogi_proverbs](https://github.com/defuncart/shogi_proverbs) | A mobile application containing various Shogi proverbs.   |
+| [kifu_viewer](https://github.com/defuncart/kifu_viewer)       | An application to view Shogi games by loading Kifu files. |
 
 ## Future Plans
 

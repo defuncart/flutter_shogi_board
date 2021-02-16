@@ -5,7 +5,7 @@ import 'autosize_text.dart';
 /// Renders a given board piece as text
 class Piece extends StatelessWidget {
   /// A multiplier to determine font size based on cell size
-  static const _fontSizeMultiplier = 0.75;
+  static const _fontSizeMultiplier = 0.725;
 
   /// The board piece as a text string
   final String boardPiece;
