@@ -41,6 +41,8 @@ class AutosizeText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final charCountMultiplier = text.length > 1 ? 0.85 : 1.0;
+
     return Container(
       width: size,
       height: size,
@@ -51,8 +53,7 @@ class AutosizeText extends StatelessWidget {
           text,
           style: TextStyle(
             color: color,
-            fontSize: size * fontSizeMultiplier,
-            height: 1 / fontSizeMultiplier,
+            fontSize: size * fontSizeMultiplier * charCountMultiplier,
           ),
         ),
       ),
