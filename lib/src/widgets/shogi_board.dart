@@ -81,11 +81,9 @@ class ShogiBoard extends StatelessWidget {
             sizeBoardCell * (showPiecesInHand ? 2 : 0);
 
         // determine rows of widgets
-        // final rows = List<Widget>(numberRows);
-        final rows = <Widget>[];
+        final rows = List<Widget>.filled(numberRows, Container());
         for (var y = 0; y < numberRows; y++) {
-          // final row = List<Widget>.generate(numberColumns);
-          final row = <Widget>[];
+          final row = List<Widget>.filled(numberRows, Container());
           for (var x = numberColumns - 1; x >= 0; x--) {
             final boardPiece = gameBoard.boardPieces.pieceAtPosition(
               column: style.showCoordIndicators ? x : x + 1,
