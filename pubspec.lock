@@ -93,7 +93,7 @@ packages:
     description:
       path: "."
       ref: "feature/null-safety"
-      resolved-ref: "7b56fdfb552493bb1c42e9de7944a2280b6c14ab"
+      resolved-ref: "6f85450269e13b451923240575c5e15a5f431478"
       url: "https://github.com/defuncart/shogi"
     source: git
     version: "0.0.5-nullsafety.0"

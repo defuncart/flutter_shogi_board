@@ -20,7 +20,8 @@ class DefaultShogiBoardStyle extends InheritedWidget {
   ///
   /// If no such instance exists, returns an instance created by `DefaultShogiBoardStyle.fallback`, which contains fallback values.
   static DefaultShogiBoardStyle of(BuildContext context) =>
-      context.dependOnInheritedWidgetOfExactType<DefaultShogiBoardStyle>() ?? const DefaultShogiBoardStyle.fallback();
+      context.dependOnInheritedWidgetOfExactType<DefaultShogiBoardStyle>() ??
+      const DefaultShogiBoardStyle.fallback();
 
   /// A const-constructible `DefaultShogiBoardStyle` that provides fallback values.
   ///
