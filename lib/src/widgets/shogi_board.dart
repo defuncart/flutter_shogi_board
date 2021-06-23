@@ -25,7 +25,7 @@ class ShogiBoard extends StatelessWidget {
   final GameBoard gameBoard;
 
   /// The (optional) style to render the `ShogiBoard`
-  final ShogiBoardStyle style;
+  final ShogiBoardStyle? style;
 
   /// Whether pieces in hand should be shown. Defaults to `true`.
   ///
@@ -33,8 +33,8 @@ class ShogiBoard extends StatelessWidget {
   final bool showPiecesInHand;
 
   const ShogiBoard({
-    Key key,
-    @required this.gameBoard,
+    Key? key,
+    required this.gameBoard,
     this.style,
     this.showPiecesInHand = true,
   })  : assert(gameBoard != null),
@@ -47,12 +47,8 @@ class ShogiBoard extends StatelessWidget {
     final style = this.style ?? DefaultShogiBoardStyle.of(context).style;
 
     // determine number of columns and rows depending if coordinates should be shown
-    final numberColumns = style.showCoordIndicators
-        ? BoardConfig.numberColumns + 1
-        : BoardConfig.numberColumns;
-    final numberRows = style.showCoordIndicators
-        ? BoardConfig.numberRows + 1
-        : BoardConfig.numberRows;
+    final numberColumns = style.showCoordIndicators ? BoardConfig.numberColumns + 1 : BoardConfig.numberColumns;
+    final numberRows = style.showCoordIndicators ? BoardConfig.numberRows + 1 : BoardConfig.numberRows;
 
     return LayoutBuilder(
       builder: (_, constraints) {
@@ -65,25 +61,24 @@ class ShogiBoard extends StatelessWidget {
           ),
         );
         // determine size multiplier
-        final totalMultiplier =
-            ((BoardConfig.numberRows + (showPiecesInHand ? 2 : 0)) *
-                    _boardCellMultiplier) +
-                (style.showCoordIndicators ? _coordCellMultiplier : 0);
+        final totalMultiplier = ((BoardConfig.numberRows + (showPiecesInHand ? 2 : 0)) * _boardCellMultiplier) +
+            (style.showCoordIndicators ? _coordCellMultiplier : 0);
         final sizePerMultiplierUnit = maxSize / totalMultiplier;
         // determine the size per board cell and coord cell
         final sizeBoardCell = sizePerMultiplierUnit * _boardCellMultiplier;
         final sizeCoordCell = sizePerMultiplierUnit * _coordCellMultiplier;
         // determine the total width and height of the board
-        final totalWidth = sizeBoardCell * BoardConfig.numberColumns +
-            (style.showCoordIndicators ? sizeCoordCell : 0);
+        final totalWidth = sizeBoardCell * BoardConfig.numberColumns + (style.showCoordIndicators ? sizeCoordCell : 0);
         final totalHeight = sizeBoardCell * BoardConfig.numberRows +
             (style.showCoordIndicators ? sizeCoordCell : 0) +
             sizeBoardCell * (showPiecesInHand ? 2 : 0);
 
         // determine rows of widgets
-        final rows = List<Widget>(numberRows);
+        // final rows = List<Widget>(numberRows);
+        final rows = <Widget>[];
         for (var y = 0; y < numberRows; y++) {
-          final row = List<Widget>(numberColumns);
+          // final row = List<Widget>.generate(numberColumns);
+          final row = <Widget>[];
           for (var x = numberColumns - 1; x >= 0; x--) {
             final boardPiece = gameBoard.boardPieces.pieceAtPosition(
               column: style.showCoordIndicators ? x : x + 1,
@@ -91,37 +86,33 @@ class ShogiBoard extends StatelessWidget {
             );
 
             // if should show coord and top row/first column, assign CoordIndicatorCell else BoardCell
-            row[numberColumns - 1 - x] =
-                style.showCoordIndicators && (y == 0 || x == 0)
-                    ? CoordIndicatorCell(
-                        size: sizeCoordCell,
-                        coord: y == 0 ? x : y,
-                        isTop: y == 0,
-                        coordIndicatorType: style.coordIndicatorType,
-                        color: style.borderColor,
-                      )
-                    : BoardCell(
-                        size: sizeBoardCell,
-                        edge: Edge(
-                          top: y == (style.showCoordIndicators ? 1 : 0),
-                          bottom: y == numberRows - 1,
-                          left: x == numberColumns - 1,
-                          right: x == (style.showCoordIndicators ? 1 : 0),
-                        ),
-                        cellColor: style.cellColor,
-                        borderColor: style.borderColor,
-                        child: boardPiece != null
-                            ? Piece(
-                                boardPiece: boardPiece.displayString(
-                                    usesJapanese: style.usesJapanese),
-                                isSente: boardPiece.isSente,
-                                size: sizeBoardCell,
-                                pieceColor: boardPiece.isPromoted
-                                    ? style.promotedPieceColor
-                                    : style.pieceColor,
-                              )
-                            : null,
-                      );
+            row[numberColumns - 1 - x] = style.showCoordIndicators && (y == 0 || x == 0)
+                ? CoordIndicatorCell(
+                    size: sizeCoordCell,
+                    coord: y == 0 ? x : y,
+                    isTop: y == 0,
+                    coordIndicatorType: style.coordIndicatorType,
+                    color: style.borderColor,
+                  )
+                : BoardCell(
+                    size: sizeBoardCell,
+                    edge: Edge(
+                      top: y == (style.showCoordIndicators ? 1 : 0),
+                      bottom: y == numberRows - 1,
+                      left: x == numberColumns - 1,
+                      right: x == (style.showCoordIndicators ? 1 : 0),
+                    ),
+                    cellColor: style.cellColor,
+                    borderColor: style.borderColor,
+                    child: boardPiece != null
+                        ? Piece(
+                            boardPiece: boardPiece.displayString(usesJapanese: style.usesJapanese),
+                            isSente: boardPiece.isSente,
+                            size: sizeBoardCell,
+                            pieceColor: boardPiece.isPromoted ? style.promotedPieceColor : style.pieceColor,
+                          )
+                        : null,
+                  );
           }
 
           // if top row and should show coord indicators, then wrap in an additional row to allow correct spacing
@@ -152,29 +143,25 @@ class ShogiBoard extends StatelessWidget {
               if (showPiecesInHand)
                 _PiecesInHand(
                   pieces: gameBoard.goteOrderedPiecesInHand
-                      .map((p) =>
-                          p.displayString(usesJapanese: style.usesJapanese))
+                      .map((p) => p.displayString(usesJapanese: style.usesJapanese))
                       .toList()
                       .convertToMapWithCountUniqueElements(),
                   isSente: false,
                   size: sizeBoardCell,
                   pieceColor: style.pieceColor,
-                  rightEdgeSpacer:
-                      style.showCoordIndicators ? sizeCoordCell : 0,
+                  rightEdgeSpacer: style.showCoordIndicators ? sizeCoordCell : 0,
                 ),
               ...rows,
               if (showPiecesInHand)
                 _PiecesInHand(
                   pieces: gameBoard.senteOrderedPiecesInHand
-                      .map((p) =>
-                          p.displayString(usesJapanese: style.usesJapanese))
+                      .map((p) => p.displayString(usesJapanese: style.usesJapanese))
                       .toList()
                       .convertToMapWithCountUniqueElements(),
                   isSente: true,
                   size: sizeBoardCell,
                   pieceColor: style.pieceColor,
-                  rightEdgeSpacer:
-                      style.showCoordIndicators ? sizeCoordCell : 0,
+                  rightEdgeSpacer: style.showCoordIndicators ? sizeCoordCell : 0,
                 ),
             ],
           ),
@@ -207,30 +194,24 @@ class _PiecesInHand extends StatelessWidget {
   final Color pieceColor;
 
   const _PiecesInHand({
-    Key key,
-    this.pieces,
-    @required this.isSente,
-    @required this.size,
-    @required this.pieceColor,
+    Key? key,
+    required this.pieces,
+    required this.isSente,
+    required this.size,
+    required this.pieceColor,
     this.rightEdgeSpacer = 0,
-  })  : assert(isSente != null),
-        assert(size != null),
-        assert(pieceColor != null),
-        super(key: key);
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final playerIconColor = Theme.of(context).brightness == Brightness.dark
-        ? Colors.white
-        : Colors.black;
+    final playerIconColor = Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black;
     final playerIconSize = size * _sizeMultiplier;
 
     return Container(
       height: size,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment:
-            isSente ? CrossAxisAlignment.start : CrossAxisAlignment.end,
+        crossAxisAlignment: isSente ? CrossAxisAlignment.start : CrossAxisAlignment.end,
         children: <Widget>[
           if (isSente)
             PlayerIcon(
@@ -239,8 +220,7 @@ class _PiecesInHand extends StatelessWidget {
               color: playerIconColor,
             ),
           Row(
-            mainAxisAlignment:
-                isSente ? MainAxisAlignment.end : MainAxisAlignment.start,
+            mainAxisAlignment: isSente ? MainAxisAlignment.end : MainAxisAlignment.start,
             children: <Widget>[
               for (final kvp in pieces.entries)
                 PieceInHand(
@@ -272,19 +252,15 @@ class _PiecesInHand extends StatelessWidget {
 }
 
 extension GameBoardExtension on GameBoard {
-  List<BoardPiece> get senteOrderedPiecesInHand =>
-      _orderedPiecesInHand(sentePiecesInHand);
+  List<BoardPiece> get senteOrderedPiecesInHand => _orderedPiecesInHand(sentePiecesInHand);
 
-  List<BoardPiece> get goteOrderedPiecesInHand =>
-      _orderedPiecesInHand(gotePiecesInHand, sortOrder: -1);
+  List<BoardPiece> get goteOrderedPiecesInHand => _orderedPiecesInHand(gotePiecesInHand, sortOrder: -1);
 
-  List<BoardPiece> _orderedPiecesInHand(List<BoardPiece> pieces,
-      {int sortOrder = 1}) {
+  List<BoardPiece> _orderedPiecesInHand(List<BoardPiece> pieces, {int sortOrder = 1}) {
     final orderedPieces = List<BoardPiece>.from(pieces);
-    orderedPieces.sort(
-        (a, b) => (ShogiUtils.piecesInHandOrder.indexOf(a.pieceType)).compareTo(
-              ShogiUtils.piecesInHandOrder.indexOf(b.pieceType) * sortOrder,
-            ));
+    orderedPieces.sort((a, b) => (ShogiUtils.piecesInHandOrder.indexOf(a.pieceType)).compareTo(
+          ShogiUtils.piecesInHandOrder.indexOf(b.pieceType) * sortOrder,
+        ));
 
     return orderedPieces;
   }

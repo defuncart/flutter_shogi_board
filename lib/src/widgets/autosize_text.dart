@@ -27,11 +27,11 @@ class AutosizeText extends StatelessWidget {
 
   const AutosizeText(
     this.text, {
-    Key key,
-    @required this.textDirection,
-    @required this.size,
-    @required this.fontSizeMultiplier,
-    @required this.color,
+    Key? key,
+    required this.textDirection,
+    required this.size,
+    required this.fontSizeMultiplier,
+    required this.color,
   })  : assert(text != null),
         assert(textDirection != null),
         assert(size != null && size > 0),

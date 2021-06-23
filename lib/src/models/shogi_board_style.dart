@@ -39,24 +39,18 @@ class ShogiBoardStyle {
     this.usesJapanese = true,
     this.showCoordIndicators = true,
     this.coordIndicatorType = CoordIndicatorType.japanese,
-  })  : assert(pieceColor != null),
-        assert(promotedPieceColor != null),
-        assert(cellColor != null),
-        assert(borderColor != null),
-        assert(usesJapanese != null),
-        assert(showCoordIndicators != null),
-        assert(coordIndicatorType != null);
+  });
 
   /// Creates a copy of this `ShogiBoardStyle` but with the given fields replaced with the new values.
   ShogiBoardStyle copyWith({
-    double maxSize,
-    Color pieceColor,
-    Color promotedPieceColor,
-    Color cellColor,
-    Color borderColor,
-    bool usesJapanese,
-    bool showCoordIndicators,
-    CoordIndicatorType coordIndicatorType,
+    double? maxSize,
+    Color? pieceColor,
+    Color? promotedPieceColor,
+    Color? cellColor,
+    Color? borderColor,
+    bool? usesJapanese,
+    bool? showCoordIndicators,
+    CoordIndicatorType? coordIndicatorType,
   }) =>
       ShogiBoardStyle(
         maxSize: maxSize ?? this.maxSize,
@@ -81,9 +75,6 @@ class ShogiBoardStyle {
       'showCoordIndicators': showCoordIndicators,
       'coordIndicatorType': coordIndicatorType,
     };
-    return properties.entries
-        .where((kvp) => kvp.value != null)
-        .toList()
-        .toString();
+    return properties.entries.map((kvp) => kvp.value != null).toList().toString();
   }
 }

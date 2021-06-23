@@ -32,13 +32,13 @@ class PieceInHand extends StatelessWidget {
   final Color countColor;
 
   const PieceInHand({
-    Key key,
-    @required this.boardPiece,
-    @required this.count,
-    @required this.isSente,
-    @required this.size,
-    @required this.pieceColor,
-    @required this.countColor,
+    Key? key,
+    required this.boardPiece,
+    required this.count,
+    required this.isSente,
+    required this.size,
+    required this.pieceColor,
+    required this.countColor,
   })  : assert(boardPiece != null && boardPiece != ''),
         assert(count != null && count > 0),
         assert(isSente != null),

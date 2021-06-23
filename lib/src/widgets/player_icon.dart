@@ -18,10 +18,10 @@ class PlayerIcon extends StatelessWidget {
   final Color color;
 
   const PlayerIcon({
-    Key key,
-    @required this.isSente,
-    @required this.size,
-    @required this.color,
+    Key? key,
+    required this.isSente,
+    required this.size,
+    required this.color,
   })  : assert(isSente != null),
         assert(size != null && size > 0),
         super(key: key);
