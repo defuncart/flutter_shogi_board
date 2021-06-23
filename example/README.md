@@ -1,6 +1,6 @@
 # example
 
-A Flutter project which demonstrates the `flutter_shogi_board` package.
+A Flutter project which demonstrates the flutter_shogi_board package.
 
 ## Getting Started
 
