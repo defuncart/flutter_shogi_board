@@ -22,8 +22,7 @@ class PlayerIcon extends StatelessWidget {
     required this.isSente,
     required this.size,
     required this.color,
-  })  : assert(isSente != null),
-        assert(size != null && size > 0),
+  })  : assert(size > 0),
         super(key: key);
 
   @override

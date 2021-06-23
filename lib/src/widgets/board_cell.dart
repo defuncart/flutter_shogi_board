@@ -39,10 +39,7 @@ class BoardCell extends StatelessWidget {
     required this.cellColor,
     required this.borderColor,
     this.child,
-  })  : assert(size != null && size > 0),
-        assert(edge != null),
-        assert(cellColor != null),
-        assert(borderColor != null),
+  })  : assert(size > 0),
         super(key: key);
 
   @override

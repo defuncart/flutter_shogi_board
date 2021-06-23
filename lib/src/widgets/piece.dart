@@ -25,11 +25,7 @@ class Piece extends StatelessWidget {
     required this.isSente,
     required this.size,
     required this.pieceColor,
-  })  : assert(boardPiece != null && boardPiece != ''),
-        assert(isSente != null),
-        assert(size != null && size > 0),
-        assert(pieceColor != null),
-        super(key: key);
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

@@ -75,9 +75,6 @@ class ShogiBoardStyle {
       'showCoordIndicators': showCoordIndicators,
       'coordIndicatorType': coordIndicatorType,
     };
-    return properties.entries
-        .map((kvp) => kvp.value != null)
-        .toList()
-        .toString();
+    return properties.entries.toList().toString();
   }
 }

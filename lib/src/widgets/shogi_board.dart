@@ -37,14 +37,13 @@ class ShogiBoard extends StatelessWidget {
     required this.gameBoard,
     this.style,
     this.showPiecesInHand = true,
-  })  : assert(gameBoard != null),
-        assert(showPiecesInHand != null),
-        super(key: key);
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     // determine style
     final style = this.style ?? DefaultShogiBoardStyle.of(context).style;
+    print(style);
 
     // determine number of columns and rows depending if coordinates should be shown
     final numberColumns = style.showCoordIndicators

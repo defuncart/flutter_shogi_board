@@ -32,13 +32,8 @@ class AutosizeText extends StatelessWidget {
     required this.size,
     required this.fontSizeMultiplier,
     required this.color,
-  })  : assert(text != null),
-        assert(textDirection != null),
-        assert(size != null && size > 0),
-        assert(fontSizeMultiplier != null &&
-            fontSizeMultiplier > 0 &&
-            fontSizeMultiplier <= 1),
-        assert(color != null),
+  })  : assert(size > 0),
+        assert(fontSizeMultiplier > 0 && fontSizeMultiplier <= 1),
         super(key: key);
 
   @override

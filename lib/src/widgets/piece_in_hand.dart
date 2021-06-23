@@ -39,12 +39,9 @@ class PieceInHand extends StatelessWidget {
     required this.size,
     required this.pieceColor,
     required this.countColor,
-  })  : assert(boardPiece != null && boardPiece != ''),
-        assert(count != null && count > 0),
-        assert(isSente != null),
-        assert(size != null && size > 0),
-        assert(pieceColor != null),
-        assert(countColor != null),
+  })  : assert(boardPiece != ''),
+        assert(count > 0),
+        assert(size > 0),
         super(key: key);
 
   @override
