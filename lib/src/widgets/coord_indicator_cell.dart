@@ -55,7 +55,7 @@ class CoordIndicatorCell extends StatelessWidget {
       }
     }
 
-    return Container(
+    return SizedBox(
       height: size,
       width: size,
       child: text == null

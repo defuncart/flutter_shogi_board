@@ -48,10 +48,10 @@ class PieceInHand extends StatelessWidget {
   Widget build(BuildContext context) {
     final countContainerSize = size * _countContainerSizeMultiplier;
     final countFontSizeMultiplier = count > 9 ? 0.85 : 1;
-    final countContainerHorizontalOffset = 0.0;
+    const countContainerHorizontalOffset = 0.0;
     final countContainerVerticalOffset = countContainerSize * 0.15;
 
-    return Container(
+    return SizedBox(
       width: size,
       height: size,
       child: Stack(

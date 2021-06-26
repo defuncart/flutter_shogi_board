@@ -43,7 +43,6 @@ class ShogiBoard extends StatelessWidget {
   Widget build(BuildContext context) {
     // determine style
     final style = this.style ?? DefaultShogiBoardStyle.of(context).style;
-    print(style);
 
     // determine number of columns and rows depending if coordinates should be shown
     final numberColumns = style.showCoordIndicators
@@ -143,7 +142,7 @@ class ShogiBoard extends StatelessWidget {
         }
 
         // construct board
-        return Container(
+        return SizedBox(
           width: totalWidth,
           height: totalHeight,
           child: Column(
@@ -221,7 +220,7 @@ class _PiecesInHand extends StatelessWidget {
         : Colors.black;
     final playerIconSize = size * _sizeMultiplier;
 
-    return Container(
+    return SizedBox(
       height: size,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,

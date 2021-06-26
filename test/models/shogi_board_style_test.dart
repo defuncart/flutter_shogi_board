@@ -5,7 +5,7 @@ import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   test('No Parameters', () {
-    final style = ShogiBoardStyle();
+    const style = ShogiBoardStyle();
     expect(style, isNotNull);
     expect(style.pieceColor, isNotNull);
     expect(style.promotedPieceColor, isNotNull);
@@ -17,14 +17,14 @@ void main() {
   });
 
   test('Piece Color', () {
-    final color = const Color(0xffFFFFFF);
-    final style = ShogiBoardStyle(pieceColor: color);
+    const color = Color(0xffFFFFFF);
+    const style = ShogiBoardStyle(pieceColor: color);
     expect(style.pieceColor, color);
   });
 
   test('copyWith Piece Color', () {
-    final color = const Color(0xffFFFFFF);
-    final style1 = ShogiBoardStyle();
+    const color = Color(0xffFFFFFF);
+    const style1 = ShogiBoardStyle();
     final style2 = style1.copyWith(pieceColor: color);
     expect(style2.pieceColor, color);
     expect(style2.promotedPieceColor, style1.promotedPieceColor);

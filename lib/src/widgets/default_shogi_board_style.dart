@@ -28,9 +28,10 @@ class DefaultShogiBoardStyle extends InheritedWidget {
   /// Returned from `of` when the given `BuildContext` doesn't have an enclosing default `ShogiBoardStyle`.
   ///
   /// This constructor creates a `DefaultShogiBoardStyle` that lacks a child, which means the constructed value cannot be incorporated into the tree.
-  const DefaultShogiBoardStyle.fallback()
+  const DefaultShogiBoardStyle.fallback({Key? key})
       : style = const ShogiBoardStyle(),
         super(
+          key: key,
           child: const _NullWidget(),
         );
 }

@@ -18,11 +18,11 @@ dependencies:
     git:
       url: https://github.com/defuncart/shogi
       ref: main
-  pedantic: ^1.11.1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  flutter_lints: ^1.0.3
 
 flutter:
   uses-material-design: true
