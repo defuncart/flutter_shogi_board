@@ -1,3 +1,10 @@
+## [0.0.7] - XX/XX/2020
+
+* Updated to use shogi 0.0.5. Raises Dart sdk version >= 2.12.
+* Increases piece size.
+* Improves pieces in hand, gote reversed from sente etc.
+* Aligns analysis options with flutter_lints.
+
 ## [0.0.6] - 22/08/2020
 
 * Updated to use shogi 0.0.4. Raises Dart sdk version >= 2.7.

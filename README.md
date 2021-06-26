@@ -24,8 +24,6 @@ dependencies:
   flutter_shogi_board:
 ```
 
-Note that this package requires dart >= 2.7.0.
-
 ### Example
 
 ```dart
