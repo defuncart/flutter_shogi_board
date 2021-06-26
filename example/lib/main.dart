@@ -21,7 +21,7 @@ class _HomeScreen extends StatelessWidget {
   static void _showPage(BuildContext context, Widget page) =>
       Navigator.of(context).push(MaterialPageRoute(builder: (_) => page));
 
-  _HomeScreen({Key key}) : super(key: key);
+  _HomeScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +42,7 @@ class _HomeScreen extends StatelessWidget {
 }
 
 class _CastleBuildingAnimation extends StatefulWidget {
-  _CastleBuildingAnimation({Key key}) : super(key: key);
+  _CastleBuildingAnimation({Key? key}) : super(key: key);
 
   @override
   _CastleBuildingAnimationState createState() =>
@@ -50,9 +50,8 @@ class _CastleBuildingAnimation extends StatefulWidget {
 }
 
 class _CastleBuildingAnimationState extends State<_CastleBuildingAnimation> {
-  List<Move> moves;
-  GameBoard gameBoard;
-  bool _isDisposed = false;
+  late List<Move> moves;
+  late GameBoard gameBoard;
 
   @override
   void initState() {
@@ -79,20 +78,13 @@ class _CastleBuildingAnimationState extends State<_CastleBuildingAnimation> {
     playSequence();
   }
 
-  @override
-  void dispose() {
-    _isDisposed = true;
-
-    super.dispose();
-  }
-
   Future<void> playSequence() async {
     final duration = Duration(seconds: 2);
 
     await Future.delayed(duration);
 
     for (final move in moves) {
-      if (_isDisposed) {
+      if (!mounted) {
         return;
       }
 
@@ -103,7 +95,7 @@ class _CastleBuildingAnimationState extends State<_CastleBuildingAnimation> {
       await Future.delayed(duration);
     }
 
-    if (_isDisposed) {
+    if (!mounted) {
       return;
     }
 
@@ -131,7 +123,7 @@ class _CastleBuildingAnimationState extends State<_CastleBuildingAnimation> {
 }
 
 class _Tsume extends StatelessWidget {
-  const _Tsume({Key key}) : super(key: key);
+  const _Tsume({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -157,7 +149,7 @@ class _Tsume extends StatelessWidget {
 }
 
 class _Proverb extends StatelessWidget {
-  const _Proverb({Key key}) : super(key: key);
+  const _Proverb({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -245,14 +237,14 @@ class _Proverb extends StatelessWidget {
 
 class _SFENBoard extends StatelessWidget {
   final String sfenString;
-  final String label;
+  final String? label;
   final bool showPiecesInHand;
 
   const _SFENBoard({
-    @required this.sfenString,
+    required this.sfenString,
     this.label,
     this.showPiecesInHand = true,
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -268,7 +260,7 @@ class _SFENBoard extends StatelessWidget {
             Column(
               children: <Widget>[
                 if (!showPiecesInHand) Container(height: 4),
-                Text(label),
+                Text(label!),
               ],
             ),
         ],
@@ -282,9 +274,9 @@ class _MovesList extends StatelessWidget {
   final PlayerType playerFirstMove;
 
   const _MovesList({
-    @required this.moves,
+    required this.moves,
     this.playerFirstMove = PlayerType.sente,
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override

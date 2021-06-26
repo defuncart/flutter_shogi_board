@@ -8,10 +8,10 @@ class Edge {
   final bool right;
 
   const Edge({
-    @required this.top,
-    @required this.bottom,
-    @required this.left,
-    @required this.right,
+    required this.top,
+    required this.bottom,
+    required this.left,
+    required this.right,
   });
 }
 
@@ -30,19 +30,16 @@ class BoardCell extends StatelessWidget {
   final Color borderColor;
 
   /// The child content to display (can be `null`)
-  final Widget child;
+  final Widget? child;
 
   const BoardCell({
-    Key key,
-    @required this.size,
-    @required this.edge,
-    @required this.cellColor,
-    @required this.borderColor,
+    Key? key,
+    required this.size,
+    required this.edge,
+    required this.cellColor,
+    required this.borderColor,
     this.child,
-  })  : assert(size != null && size > 0),
-        assert(edge != null),
-        assert(cellColor != null),
-        assert(borderColor != null),
+  })  : assert(size > 0),
         super(key: key);
 
   @override

@@ -30,12 +30,12 @@ class CoordIndicatorCell extends StatelessWidget {
   final Color color;
 
   const CoordIndicatorCell({
-    @required this.size,
-    @required this.coord,
-    @required this.isTop,
+    required this.size,
+    required this.coord,
+    required this.isTop,
     this.coordIndicatorType = CoordIndicatorType.japanese,
     this.color = BoardColors.gray,
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   static const _arabic = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i'];
@@ -44,7 +44,7 @@ class CoordIndicatorCell extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     //determine text to display
-    String text;
+    String? text;
     if (coord != 0) {
       if (isTop || coordIndicatorType == CoordIndicatorType.number) {
         text = coord.toString();
@@ -55,7 +55,7 @@ class CoordIndicatorCell extends StatelessWidget {
       }
     }
 
-    return Container(
+    return SizedBox(
       height: size,
       width: size,
       child: text == null

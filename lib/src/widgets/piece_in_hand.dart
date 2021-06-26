@@ -32,29 +32,26 @@ class PieceInHand extends StatelessWidget {
   final Color countColor;
 
   const PieceInHand({
-    Key key,
-    @required this.boardPiece,
-    @required this.count,
-    @required this.isSente,
-    @required this.size,
-    @required this.pieceColor,
-    @required this.countColor,
-  })  : assert(boardPiece != null && boardPiece != ''),
-        assert(count != null && count > 0),
-        assert(isSente != null),
-        assert(size != null && size > 0),
-        assert(pieceColor != null),
-        assert(countColor != null),
+    Key? key,
+    required this.boardPiece,
+    required this.count,
+    required this.isSente,
+    required this.size,
+    required this.pieceColor,
+    required this.countColor,
+  })  : assert(boardPiece != ''),
+        assert(count > 0),
+        assert(size > 0),
         super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final countContainerSize = size * _countContainerSizeMultiplier;
     final countFontSizeMultiplier = count > 9 ? 0.85 : 1;
-    final countContainerHorizontalOffset = 0.0;
+    const countContainerHorizontalOffset = 0.0;
     final countContainerVerticalOffset = countContainerSize * 0.15;
 
-    return Container(
+    return SizedBox(
       width: size,
       height: size,
       child: Stack(

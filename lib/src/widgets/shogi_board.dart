@@ -25,7 +25,7 @@ class ShogiBoard extends StatelessWidget {
   final GameBoard gameBoard;
 
   /// The (optional) style to render the `ShogiBoard`
-  final ShogiBoardStyle style;
+  final ShogiBoardStyle? style;
 
   /// Whether pieces in hand should be shown. Defaults to `true`.
   ///
@@ -33,13 +33,11 @@ class ShogiBoard extends StatelessWidget {
   final bool showPiecesInHand;
 
   const ShogiBoard({
-    Key key,
-    @required this.gameBoard,
+    Key? key,
+    required this.gameBoard,
     this.style,
     this.showPiecesInHand = true,
-  })  : assert(gameBoard != null),
-        assert(showPiecesInHand != null),
-        super(key: key);
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -81,9 +79,9 @@ class ShogiBoard extends StatelessWidget {
             sizeBoardCell * (showPiecesInHand ? 2 : 0);
 
         // determine rows of widgets
-        final rows = List<Widget>(numberRows);
+        final rows = List<Widget>.filled(numberRows, Container());
         for (var y = 0; y < numberRows; y++) {
-          final row = List<Widget>(numberColumns);
+          final row = List<Widget>.filled(numberRows, Container());
           for (var x = numberColumns - 1; x >= 0; x--) {
             final boardPiece = gameBoard.boardPieces.pieceAtPosition(
               column: style.showCoordIndicators ? x : x + 1,
@@ -144,7 +142,7 @@ class ShogiBoard extends StatelessWidget {
         }
 
         // construct board
-        return Container(
+        return SizedBox(
           width: totalWidth,
           height: totalHeight,
           child: Column(
@@ -207,16 +205,13 @@ class _PiecesInHand extends StatelessWidget {
   final Color pieceColor;
 
   const _PiecesInHand({
-    Key key,
-    this.pieces,
-    @required this.isSente,
-    @required this.size,
-    @required this.pieceColor,
+    Key? key,
+    required this.pieces,
+    required this.isSente,
+    required this.size,
+    required this.pieceColor,
     this.rightEdgeSpacer = 0,
-  })  : assert(isSente != null),
-        assert(size != null),
-        assert(pieceColor != null),
-        super(key: key);
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -225,7 +220,7 @@ class _PiecesInHand extends StatelessWidget {
         : Colors.black;
     final playerIconSize = size * _sizeMultiplier;
 
-    return Container(
+    return SizedBox(
       height: size,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,

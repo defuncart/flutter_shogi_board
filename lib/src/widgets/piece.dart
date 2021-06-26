@@ -20,16 +20,12 @@ class Piece extends StatelessWidget {
   final Color pieceColor;
 
   const Piece({
-    Key key,
-    @required this.boardPiece,
-    @required this.isSente,
-    @required this.size,
-    @required this.pieceColor,
-  })  : assert(boardPiece != null && boardPiece != ''),
-        assert(isSente != null),
-        assert(size != null && size > 0),
-        assert(pieceColor != null),
-        super(key: key);
+    Key? key,
+    required this.boardPiece,
+    required this.isSente,
+    required this.size,
+    required this.pieceColor,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

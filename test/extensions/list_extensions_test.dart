@@ -2,12 +2,6 @@ import 'package:flutter_shogi_board/src/extensions/list_extensions.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  test('Null', () {
-    List list;
-    final map = list.convertToMapWithCountUniqueElements();
-    expect(map, {});
-  });
-
   test('Int array, no duplicates', () {
     final list = [1, 2, 3, 4, 5];
     final map = list.convertToMapWithCountUniqueElements();
