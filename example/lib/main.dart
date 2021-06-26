@@ -52,7 +52,6 @@ class _CastleBuildingAnimation extends StatefulWidget {
 class _CastleBuildingAnimationState extends State<_CastleBuildingAnimation> {
   late List<Move> moves;
   late GameBoard gameBoard;
-  bool _isDisposed = false;
 
   @override
   void initState() {
@@ -79,20 +78,13 @@ class _CastleBuildingAnimationState extends State<_CastleBuildingAnimation> {
     playSequence();
   }
 
-  @override
-  void dispose() {
-    _isDisposed = true;
-
-    super.dispose();
-  }
-
   Future<void> playSequence() async {
     final duration = Duration(seconds: 2);
 
     await Future.delayed(duration);
 
     for (final move in moves) {
-      if (_isDisposed) {
+      if (!mounted) {
         return;
       }
 
@@ -103,7 +95,7 @@ class _CastleBuildingAnimationState extends State<_CastleBuildingAnimation> {
       await Future.delayed(duration);
     }
 
-    if (_isDisposed) {
+    if (!mounted) {
       return;
     }
 
