@@ -1,5 +1,3 @@
-import 'dart:io' show Platform;
-
 import 'package:flutter/material.dart';
 
 /// An enum describing the possible text directions
@@ -41,7 +39,9 @@ class AutosizeText extends StatelessWidget {
     final charCountMultiplier = text.length > 1 ? 0.85 : 1.0;
     // TODO this needs more research + tweeking
     final textHeight =
-        Platform.isMacOS && size > 25 ? null : 1 / fontSizeMultiplier;
+        Theme.of(context).platform == TargetPlatform.macOS && size > 25
+            ? null
+            : 1 / fontSizeMultiplier;
 
     return Container(
       width: size,
