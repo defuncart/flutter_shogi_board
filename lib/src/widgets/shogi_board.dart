@@ -267,18 +267,21 @@ class _PiecesInHand extends StatelessWidget {
 }
 
 extension GameBoardExtension on GameBoard {
+  /// Returns a list of board pieces sorted rook to pawn for sente
+  @visibleForTesting
   List<BoardPiece> get senteOrderedPiecesInHand =>
       _orderedPiecesInHand(sentePiecesInHand);
 
+  /// Returns a list of board pieces sorted pawn to rook for sente
+  @visibleForTesting
   List<BoardPiece> get goteOrderedPiecesInHand =>
-      _orderedPiecesInHand(gotePiecesInHand, sortOrder: -1);
+      _orderedPiecesInHand(gotePiecesInHand).reversed.toList();
 
-  List<BoardPiece> _orderedPiecesInHand(List<BoardPiece> pieces,
-      {int sortOrder = 1}) {
+  List<BoardPiece> _orderedPiecesInHand(List<BoardPiece> pieces) {
     final orderedPieces = List<BoardPiece>.from(pieces);
     orderedPieces.sort(
         (a, b) => (ShogiUtils.piecesInHandOrder.indexOf(a.pieceType)).compareTo(
-              ShogiUtils.piecesInHandOrder.indexOf(b.pieceType) * sortOrder,
+              ShogiUtils.piecesInHandOrder.indexOf(b.pieceType),
             ));
 
     return orderedPieces;
