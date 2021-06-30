@@ -1,8 +1,9 @@
-## [0.0.7] - XX/XX/2020
+## [0.0.7] - 30/06/2020
 
 * Updated to use shogi 0.0.5. Raises Dart sdk version >= 2.12.
-* Increases piece size.
-* Improves pieces in hand, gote reversed from sente etc.
+* Optimize piece size.
+* Pieces in hand count position aligned to bottom of piece.
+* New pieces in hand ordering (rook -> pawn), gote mirror of sente.
 * Aligns analysis options with flutter_lints.
 
 ## [0.0.6] - 22/08/2020

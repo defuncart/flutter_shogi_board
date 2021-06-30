@@ -49,7 +49,7 @@ void main() {
 }
 ```
 
-For more information, see the Flutter app in the `example` directory. This example is also hosted [online](http://defuncart.com/flutter_shogi_board/).
+For more information, see the Flutter app in the `example` directory. This example is also hosted [online](https://defuncart.com/flutter_shogi_board/).
 
 ## Basic Usage
 
