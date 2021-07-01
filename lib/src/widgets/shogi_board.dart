@@ -215,9 +215,6 @@ class _PiecesInHand extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final playerIconColor = Theme.of(context).brightness == Brightness.dark
-        ? Colors.white
-        : Colors.black;
     final playerIconSize = size * _sizeMultiplier;
 
     return SizedBox(
@@ -231,7 +228,7 @@ class _PiecesInHand extends StatelessWidget {
             PlayerIcon(
               isSente: isSente,
               size: playerIconSize,
-              color: playerIconColor,
+              color: pieceColor,
             ),
           Row(
             mainAxisAlignment:
@@ -255,7 +252,7 @@ class _PiecesInHand extends StatelessWidget {
                 PlayerIcon(
                   isSente: isSente,
                   size: playerIconSize,
-                  color: playerIconColor,
+                  color: pieceColor,
                 ),
                 SizedBox(width: rightEdgeSpacer)
               ],
